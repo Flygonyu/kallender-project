@@ -1,154 +1,179 @@
 const model = {
-    //app
-    app:{
-        currentUser: '', //admin, Vanja
-        currentPage: 'createAccount', //signIn, createAccount, dayView, 
-                                      //weekView, monthView, yearView, editEvent, 
-                                      //createEvent,
-    },
-    
-    //inputs
-    inputs: {
-        
-        createEvent:{
-            title:'',
-            category:'',
-            color:'',
-            startDate:'',
-            endDate:'',
-            startTime:'',
-            endTime:'',
-            description:'',
-        },
+  //app
+  app: {
+    currentUser: "", //admin, Vanja
+    currentPage: "dayView", //signIn, createAccount, dayView,
+    //weekView, monthView, yearView, 
+  },
 
-        editEvent:{
-            title:'',
-            category:'',
-            color:'',
-            startDate:'',
-            endDate:'',
-            startTime:'',
-            endTime:'',
-            description:''
-        },
-        
-        signIn:{
-            email: '',
-            passwrd: '',
-        }, 
+  //inputs
+  inputs: {
 
-        createAccount:{
-            email: '',
-            username: '',
-            passwrd: '',
-            verifyPasswrd: '',
-        } 
+    signIn: {
+      email: "",
+      passwrd: "",
     },
 
-    //data
-    users: [
-        {
-            id: 1,
-            email: 'admin@email.com',
-            username: 'admin',
-            passwrd: '123',
-            isAdmin: true,
-        },
-        {
-            id: 2,
-            email: 'vanja@email.com',
-            username: 'Vanja',
-            passwrd: '123',
-            isAdmin: false,
-        },
-        {
-            id: 3,
-            email: '',
-            username: '',
-            passwrd: '',
-            isAdmin: false,
-        },
-    ],
+    createAccount: {
+      email: "",
+      username: "",
+      passwrd: "",
+      verifyPasswrd: "",
+    },
 
-    events:[
-        {
-            startDate: '1.11.22',
-            endDate: '1.11.22',
-            startTime: '12:15',
-            endTime: '12:45',
-            title: 'Møte',
-            description: 'Møte med Elin',
-            createdBy: 'Vanja',        //if createdBy = currentUser or admin, allow edit
-            category: 'møte',       //if category, lock color picker
-            color: 'blue',
-        },
-        {
-            startDate: '4.11.22',
-            endDate: '7.11.22',
-            startTime: '09:00',
-            endTime: '',        //what to do if not specified
-            title: 'Hyttetur',
-            description: 'Borte fra kontoret, ta kontakt via tlf.',
-            createdBy: 'Vanja',  
-            category: 'annet',   //'annet' or null? idunno
-            color: 'pink',
-        },
-    ],
-    
-    refrenceData: {
-        currentMonday:'',
-        currentDate:'',
-        currentMonth:'',
-        currentYear:'',
-        currentWeek:'',
-        isLeapYear: false, //? not sure where to put this
-        splitDayView: false,
-        holidays: [
-            {
-                date: '01.01',
-                name: 'Nyttårsdag',
-            },
-            {
-                date:'',
-                name:'Fastelavnssøndag'
-            },
-            {
-                date:'08.03',
-                name:'Den internasjonale kvinnedagen',
-            },
-            {
-                date:'',
-                name:'palmesøndag'
-            }, 
-            {
-                date:'',
-                name:'Skjærtorsdag'
-            }, 
-            {
-                date:'',
-                name:'Langfredag'
-            },
-            {
-                date:'',
-                name:'Påskeaften'
-            },
-            {
-                date:'17.05',
-                name:'17 Mai'
-            }, 
-            {
-                date:'',
-                name:'Sankthans'
-            },
-            {
-                date:'24.12',
-                name:'Julaften'
-            }
-        ],
+    calendar: {
+      currentDay: "",       //toISOString
+      mode: "day", //day, month, week, year
+      splitDay: true,
+      selectedEventId: 1,
+      eventEditMode: false,
+      editEvent: {          //create if selectedEventId=null
+        id: 2,
+        title: "",
+        category: "",
+        color: "",
+        startDate: "",
+        endDate: "",
+        startTime: "",
+        endTime: "",
+        description: "",
+      },
+    },
+  },
 
-    }
+  //data
+  users: [
+    {
+      id: 1,
+      email: "admin@email.com",
+      username: "admin",
+      passwrd: "123",
+      isAdmin: true,
+    },
+    {
+      id: 2,
+      email: "vanja@email.com",
+      username: "Vanja",
+      passwrd: "123",
+      isAdmin: false,
+    },
+    {
+      id: 3,
+      email: "",
+      username: "",
+      passwrd: "",
+      isAdmin: false,
+    },
+  ],
 
-}
+  months: [
+    "Januar",
+    "Februar",
+    "Mars",
+    "April",
+    "Juni",
+    "Juli",
+    "August",
+    "September",
+    "Oktober",
+    "November",
+    "Desember",
+  ],
+
+  dayNames: [
+    "søndag",
+    "mandag",
+    "tirsdag",
+    "onsdag",
+    "torsdag",
+    "fredag",
+    "lørdag",
+  ],
+
+  events: [
+    {
+      startDate: "1.11.22",
+      endDate: "1.11.22",
+      title: "Møte",
+      description: "Møte med Elin",
+      createdBy: "Vanja", //if createdBy = currentUser or admin, allow edit
+      category: "møte", //if category, lock color picker
+      color: "blue",
+    },
+    {
+      startDate: "4.11.22",
+      endDate: "7.11.22",
+      title: "Hyttetur",
+      description: "Borte fra kontoret, ta kontakt via tlf.",
+      createdBy: "Vanja",
+      category: null, 
+      color: "pink",
+    },
+  ],
+
+  categories: [
+    {
+        id: 1,
+        name: 'møte',
+        color: 'blue'
+    },
+    {
+        id: 2,
+        name: 'ferie',
+        color: 'green'
+    },
+    {
+        id: 3,
+        name: '',
+        color: ''
+    },
+  ],
+
+  isLeapYear: false, //? not sure where to put this
+
+  holidays: [
+    {
+      date: "01.01",
+      name: "Nyttårsdag",
+    },
+    {
+      date: "",
+      name: "Fastelavnssøndag",
+    },
+    {
+      date: "08.03",
+      name: "Den internasjonale kvinnedagen",
+    },
+    {
+      date: "",
+      name: "palmesøndag",
+    },
+    {
+      date: "",
+      name: "Skjærtorsdag",
+    },
+    {
+      date: "",
+      name: "Langfredag",
+    },
+    {
+      date: "",
+      name: "Påskeaften",
+    },
+    {
+      date: "17.05",
+      name: "17 Mai",
+    },
+    {
+      date: "",
+      name: "Sankthans",
+    },
+    {
+      date: "24.12",
+      name: "Julaften",
+    },
+  ],
+};
 
 // Følgende dager er helligdager i Norge:
 

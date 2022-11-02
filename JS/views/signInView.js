@@ -1,8 +1,5 @@
 function signInView(){
     let html='';
-    html+=`<div class="header">
-                <div class="menu-button"></div>
-            </div>`
     html+=`
     <div class="welcome">Velkommen!</div>
     <div class="sign-in">

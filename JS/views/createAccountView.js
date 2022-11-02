@@ -1,6 +1,5 @@
 function createAccountView(){
     let html='';
-    html+=`<div class="header"></div>`
     html+=`
         <div class="">
             <input type="email" class="">
