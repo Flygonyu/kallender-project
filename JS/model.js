@@ -69,6 +69,7 @@ const model = {
             isAdmin: false,
         },
     ],
+
     events:[
         {
             startDate: '1.11.22',
@@ -93,10 +94,71 @@ const model = {
             color: 'pink',
         },
     ],
+    
     refrenceData: {
         currentMonday:'',
         currentDate:'',
+        currentMonth:'',
+        currentYear:'',
+        currentWeek:'',
+        isLeapYear: false, //? not sure where to put this
+        splitDayView: false,
+        holidays: [
+            {
+                date: '01.01',
+                name: 'Nyttårsdag',
+            },
+            {
+                date:'',
+                name:'Fastelavnssøndag'
+            },
+            {
+                date:'08.03',
+                name:'Den internasjonale kvinnedagen',
+            },
+            {
+                date:'',
+                name:'palmesøndag'
+            }, 
+            {
+                date:'',
+                name:'Skjærtorsdag'
+            }, 
+            {
+                date:'',
+                name:'Langfredag'
+            },
+            {
+                date:'',
+                name:'Påskeaften'
+            },
+            {
+                date:'17.05',
+                name:'17 Mai'
+            }, 
+            {
+                date:'',
+                name:'Sankthans'
+            },
+            {
+                date:'24.12',
+                name:'Julaften'
+            }
+        ],
 
     }
 
 }
+
+// Følgende dager er helligdager i Norge:
+
+// vanlige søndager
+// nyttårsdag (1. januar)
+// skjærtorsdag
+// langfredag
+// første og andre påskedag
+// Kristi himmelfartsdag
+// første og andre pinsedag
+// første og andre juledag (25. og 26. desember)
+
+// Høytidsdagene i Norge er 1. juledag, 1. påskedag, 1. pinsedag, 1. mai og 17. mai.

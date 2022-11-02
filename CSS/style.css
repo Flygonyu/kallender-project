@@ -1,0 +1,61 @@
+*{
+    font-family: Poppins;
+}
+
+body{
+    margin:auto;
+}
+
+.header{
+    background-color: rgb(255, 145, 0);
+    height: 50px;
+    padding:0;
+}
+
+.welcome{
+    text-align: center;
+    font-size: 100px;
+    color: rgb(255, 145, 0);
+    margin-top: 50px;
+}
+
+.sign-in{
+    width: 400px;
+    height: 400px;
+    background-color: #D9D9D9;
+    border-radius: 15px;
+    text-align: center;
+    margin: auto;
+    margin-top: 10vh;
+}
+
+.emailInput{
+    height: 30px;
+    width: 300px;
+    margin: 50px 0px 0px 0px;
+    text-align: center;
+}
+
+.passwordInput{
+    height: 30px;
+    width: 300px;
+    margin: 20px 0px 40px 0px;
+    text-align: center;
+}
+
+.sign-in-button{
+    width: 100%;
+    height: 50px;
+    color: white;
+    background-color: #425483;
+    border-radius: 0px 0px 15px 15px;
+}
+.menu-button{
+    width:40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: white;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
