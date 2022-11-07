@@ -136,3 +136,24 @@ body{
     right: 20px;
     font-size: 2rem;
 }
+
+.dayOverView{
+    border: 2px gray inset;
+    height: 600px;
+    width: 400px;
+    background-color:aliceblue;
+    float:left;
+}
+
+.singleEvent{
+    height:auto;
+    padding:5px;
+}
+
+.detailsDayOverView{
+    float:right;
+    width:300px;
+    border: 2px gray solid;
+    height: 600px;
+    padding:5px;
+}

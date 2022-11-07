@@ -22,10 +22,10 @@ const model = {
     },
 
     calendar: {
-      currentDay: "",       //toISOString
+      currentDay: new Date(),       //toISOString
       mode: "day", //day, month, week, year
       splitDay: true,
-      selectedEventId: 1,
+      selectedEventId:null,
       eventEditMode: false,
       editEvent: {          //create if selectedEventId=null
         id: 2,
@@ -71,6 +71,7 @@ const model = {
     "Februar",
     "Mars",
     "April",
+    "Mai",
     "Juni",
     "Juli",
     "August",
@@ -92,8 +93,8 @@ const model = {
 
   events: [
     {
-      startDate: "1.11.22",
-      endDate: "1.11.22",
+      startDate: new Date("2022-11-08"),
+      endDate: new Date("2022-11-08"),
       title: "Møte",
       description: "Møte med Elin",
       createdBy: "Vanja", //if createdBy = currentUser or admin, allow edit
@@ -101,13 +102,31 @@ const model = {
       color: "blue",
     },
     {
-      startDate: "4.11.22",
-      endDate: "7.11.22",
+      startDate: new Date("2022-11-07"),
+      endDate: new Date("2022-11-07"),
       title: "Hyttetur",
       description: "Borte fra kontoret, ta kontakt via tlf.",
       createdBy: "Vanja",
       category: null, 
       color: "pink",
+    },
+    {
+      startDate: new Date("2022-11-07"),
+      endDate: new Date("2022-11-10"),
+      title: "Harry tur",
+      description: "Handler bacon.",
+      createdBy: "Fredrik",
+      category: null, 
+      color: "red",
+    },
+    {
+      startDate: new Date("2022-11-06"),
+      endDate: new Date("2022-11-06"),
+      title: "Movie time",
+      description: "Surf's up best movie.",
+      createdBy: "Fredrik",
+      category: null, 
+      color: "hotPink",
     },
   ],
 

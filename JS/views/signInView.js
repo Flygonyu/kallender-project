@@ -8,7 +8,7 @@ function signInView(){
         <button class="sign-in-button spacing">Sign In</button>
     </div>
     `;
-    document.getElementById('app').innerHTML=html;
+    return html;
 }
 
         
