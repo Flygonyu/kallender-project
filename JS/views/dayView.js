@@ -22,17 +22,22 @@ function dayView() {
             ${model.inputs.calendar.currentDay.getFullYear()}
             </div>
     </div>
-    <div class="dayOverView">
-        ${showEventsThatDay()}
-    </div>
+    <div class="mainDayView">
+      <div class="dayOverView">
+          ${showEventsThatDay()}
+      </div>
 
-    <div class="detailsDayOverView" style="background-color:${chosenColor}">
-        ${model.inputs.calendar.selectedEventId!=null?`
-        ${model.events[model.inputs.calendar.selectedEventId].title}<br>
-        ${model.events[model.inputs.calendar.selectedEventId].startDate}
-        ${model.events[model.inputs.calendar.selectedEventId].endDate}
-        ${model.events[model.inputs.calendar.selectedEventId].description}
-        `:''}
+      <div class="detailsDayOverView" style="background-color:${chosenColor}">
+          ${model.inputs.calendar.selectedEventId != null ?
+          `
+          ${model.events[model.inputs.calendar.selectedEventId].title}<br>
+          ${model.events[model.inputs.calendar.selectedEventId].startDate}
+          ${model.events[model.inputs.calendar.selectedEventId].endDate}
+          ${model.events[model.inputs.calendar.selectedEventId].description}<br>
+          Lagt til av ${model.events[model.inputs.calendar.selectedEventId].createdBy}
+          `
+          : ''}
+      </div>
     </div>
     `;
   return html;
@@ -58,7 +63,7 @@ function showEventsThatDay() {
   let event = model.events;
 
 // console.log(model.events[0].startDate.toDateString())
-console.log(typeof model.inputs.calendar.currentDay.toJSON().split("T")[0])
+// console.log(typeof model.inputs.calendar.currentDay.toJSON().split("T")[0])
 
   for (let i = 0; i < model.events.length; i++) {
     if (model.events[i].startDate.toJSON().split('T')[0] <= model.inputs.calendar.currentDay.toJSON().split('T')[0] && 

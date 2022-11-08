@@ -30,7 +30,7 @@ const model = {
       editEvent: {          //create if selectedEventId=null
         id: 2,
         title: "",
-        category: "",
+        category: null,
         color: "",
         startDate: "",
         endDate: "",

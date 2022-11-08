@@ -68,6 +68,15 @@ body{
     width:100vw;
     height: 100px;
     text-align: center;
+    min-width: 700px;
+    max-width: 1700px;
+    margin:auto;
+}
+
+.mainDayView{
+    min-width: 900px;
+    max-width: 1000px;
+    margin:auto;
 }
 
 .modeButtonsContainer{
@@ -140,7 +149,7 @@ body{
 .dayOverView{
     border: 2px gray inset;
     height: 600px;
-    width: 400px;
+    width: 500px;
     background-color:aliceblue;
     float:left;
 }
@@ -156,4 +165,92 @@ body{
     border: 2px gray solid;
     height: 600px;
     padding:5px;
+}
+.moodle-main-card{
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.hidden{
+    display: none;
+}
+
+.moodle-form{
+    width: 500px;
+    height: 500px;
+    background-color:cornflowerblue;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    border: 5px rgb(24, 24, 107) solid;
+    box-shadow: 1px 6px 21px -3px #000000;
+    text-align: center;
+}
+
+.infoMoodle{
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    border: 5px rgb(24, 24, 107) solid;
+    box-shadow: 1px 6px 21px -3px #000000;
+    text-align: center;
+}
+
+.moodle-top{
+    margin-top: 20px;
+}
+.moodle-title{
+    /* margin: 0 0px 0 20px; */
+    height: 30px;
+    width: 60%;
+}
+.moodle-category{
+    margin: 0 0 0 -3px;
+    border: 1px solid black;
+    height: 35px;
+    width: 30%;
+}
+
+.description{
+    width:400px;
+    height: 300px;
+    margin-top: 30px;  
+}
+
+.infoDescription{
+    width:400px;
+    height: 300px;  
+    border: 2px solid darkblue;
+    margin: 30px auto 0px auto;
+    text-align: left;
+}
+
+.submit{
+    margin-top: 10px;
+}
+
+.datePicker{
+    width: 160px;
+}
+
+.colorPicker{
+    border-radius: 200px; /*BE A CIRCLE FFS*/
+    width: 30px;
+    height: 30px;
+}
+.moodle-error-msg{
+    height: 550px;
+}
+.moodle-error-box{
+    margin: 10px auto 0;
+    height: 50px;
+    width: 400px;
+    background-color: red;
 }
