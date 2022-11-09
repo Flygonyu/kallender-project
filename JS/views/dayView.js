@@ -45,16 +45,9 @@ function dayView() {
 
 let toggle=1;
 function getEventsInfo(index) {
-    // if(toggle==1){
+
        model.inputs.calendar.selectedEventId=index;
        chosenColor = model.events[model.inputs.calendar.selectedEventId].color
-    //    toggle-=1; 
-    // }
-    // else{
-    //     model.inputs.calendar.selectedEventId=null;
-    //     toggle+=1;
-    // }
-    
     updateView();
 }
 
@@ -70,7 +63,7 @@ function showEventsThatDay() {
     model.events[i].endDate.toJSON().split('T')[0]>= model.inputs.calendar.currentDay.toJSON().split('T')[0]) {
     html += `
       <div class="singleEvent" style="background-color: ${event[i].color};"
-      onclick="getEventsInfo(${i})">
+      onclick="getEventsInfo(${i}); ${hiddenInfo=''}">
       ${model.events[i].title}
       </div>`;
     }
@@ -78,6 +71,17 @@ function showEventsThatDay() {
   return html;
 }
 
+function test(){
+  let d = new Date(new Date().toLocaleDateString()+' '+ new Date().toLocaleTimeString())
+  console.log(d)
+}
+console.log(model.events[2].startDate.toJSON().split('T')[0])
+// "2022-11-07" < "2022-11-08" => true
+
+/* 
+
+
+*/
 
 //   if (model.events[i].startDate.toDateString() === model.inputs.calendar.currentDay.toDateString()) {
 //       html += `

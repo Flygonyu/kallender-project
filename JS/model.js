@@ -1,7 +1,7 @@
 const model = {
   //app
   app: {
-    currentUser: "", //admin, Vanja
+    currentUser: 1, //admin, Vanja
     currentPage: "dayView", //signIn, createAccount, dayView,
     //weekView, monthView, yearView, 
   },
@@ -113,7 +113,7 @@ const model = {
     {
       startDate: new Date("2022-11-07"),
       endDate: new Date("2022-11-10"),
-      title: "Harry tur",
+      title: "Harrytur",
       description: "Handler bacon.",
       createdBy: "Fredrik",
       category: null, 

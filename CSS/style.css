@@ -226,10 +226,11 @@ body{
 
 .infoDescription{
     width:400px;
-    height: 300px;  
+    height: 250px;  
     border: 2px solid darkblue;
     margin: 30px auto 0px auto;
     text-align: left;
+    padding-left: 10px;
 }
 
 .submit{
@@ -253,4 +254,9 @@ body{
     height: 50px;
     width: 400px;
     background-color: red;
+}
+
+.infoButtons{
+    text-align: right;
+    margin-right: 10px;
 }

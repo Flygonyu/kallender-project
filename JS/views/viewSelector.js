@@ -1,4 +1,6 @@
-let hidden = 'hidden'
+let hiddenAdd = 'hidden';
+let hiddenInfo = 'hidden';
+let hiddenEdit = 'hidden';
 let errorMsg='';
 
 function updateView() {
@@ -8,7 +10,8 @@ function updateView() {
             
             ${selectedPage()}
             ${addEventMoodle()}
-            
+            ${infoMoodle()}
+            ${editEventMoodle()}
             <button class="addEventButton" onclick="showEventMoodle()">+</button>`;
   document.getElementById("app").innerHTML = html;
 }
@@ -24,7 +27,7 @@ function selectedPage() {
 }
 
 function showEventMoodle(){
-  hidden='';
+  hiddenAdd='';
   updateView();
 }
 
@@ -32,7 +35,7 @@ let disabled = '';
 function addEventMoodle(){
   let html='';
   html=`
-    <div class="moodle-main-card ${hidden}">
+    <div class="moodle-main-card ${hiddenAdd}">
       <div class="moodle-form  ${errorMsg}">
         <div class="moodle-top">
           <input class="moodle-title" type="text" oninput="model.inputs.calendar.editEvent.title=this.value" placeholder="tittel">
@@ -60,6 +63,44 @@ function addEventMoodle(){
   return html;
 }
 
+function editEventMoodle(){
+  
+  // let editEvent = model.inputs.calendar.editEvent;
+  let selectedevent=model.inputs.calendar.selectedEventId;
+  let html='';
+  if(selectedevent!=null){
+  html=`
+    <div class="moodle-main-card ${hiddenEdit}">
+      <div class="moodle-form  ${errorMsg}">
+        <div class="moodle-top">
+          <input class="moodle-title" type="text" onload="model.inputs.calendar.editEvent.title=this.value" value="${model.events[selectedevent].title}" oninput="model.inputs.calendar.editEvent.title=this.value" placeholder="tittel">
+          <select class="moodle-category" value="${model.events[selectedevent].category}" onchange="model.inputs.calendar.editEvent.category=this.value" name="">
+            <option value="${model.events[selectedevent].category}">${model.events[selectedevent].category != null ? model.events[selectedevent].category : 'Velg en kategori'}</option>
+            <option value="møte">møte</option>
+            <option value="ferie">ferie</option>
+            <option value="annet">annet</option>
+          </select>
+        </div>
+        <div class="moodle-top">
+        <input class="colorPicker" value="${model.events[selectedevent].color}" onchange="model.inputs.calendar.editEvent.color=this.value" type="color">
+          starter:
+          <input class="datePicker" value="${model.events[selectedevent].startDate.toISOString().slice(0,16)}" onchange="model.inputs.calendar.editEvent.startDate=this.value" type="datetime-local">
+          slutter:
+          <input class="datePicker" value="${model.events[selectedevent].endDate.toISOString().split('T')[0]+'T'+model.events[selectedevent].endDate.toLocaleTimeString().slice(0,5)}" onchange="model.inputs.calendar.editEvent.endDate=this.value" type="datetime-local">
+        </div>
+        <input class="moodle-top description" value="${model.events[selectedevent].description}" oninput="model.inputs.calendar.editEvent.description=this.value" type="text" placeholder="beskrivelse"><br>
+        <button class="submit" ${disabled} onclick="editEvent()">Endre</button>
+        <button class="cancel" onclick="closeEdit()">Avslutt</button>
+        ${errorMsg===''?'':moodleErrorMsg()}
+      </div>
+    </div>
+  `;
+}
+  return html;
+}
+
+// model.events[selectedevent].startDate.toISOString().split('T')[0]+'T'+model.events[selectedevent].startDate.toLocaleTimeString().slice(0,5)
+
 function moodleErrorMsg(){
   let html='';
   html=`
@@ -70,24 +111,59 @@ function moodleErrorMsg(){
 
 
 function infoMoodle(){
+  let selectedevent=model.inputs.calendar.selectedEventId;
   let html='';
+  if(selectedevent!=null){
   html=`
-    <div class="moodle-main-card ">
-      <div class="infoMoodle" style="background-color:${model.events[0].color};">
-        <div class="moodle-top">
-        <text>${model.events[0].title}</text> <text>${model.events[0].category}</text>
+    <div class="moodle-main-card ${hiddenInfo}">
+      <div class="infoMoodle" style="background-color:${model.events[selectedevent].color};">
+      <div class="infoButtons">
+        <button class="submit" onclick="editMoodle()">✎</button>
+        <button class="cancel" onclick="closeInfo()">X</button>
+      </div>  
+      <div class="moodle-top">
+        <text>${model.events[selectedevent].title}</text> <text>${model.events[selectedevent].category===null?'':model.events[selectedevent].category}</text>
         </div>
-        <div class="moodle-top">
-          starter:
-          <text>${model.events[0].startDate}</text>
-          slutter:
-          <text>${model.events[0].endDate}</text>
-        </div>
-        <div class="moodle-top infoDescription">Beskrivelse</div>
-        <button class="submit" onclick="addEvent()">Endre event</button>
-        <button class="cancel" onclick="resetAddEventMoodle()">Lukk</button>
+        ${moodleSetupLongEvent()}
+        
+        <div class="moodle-top infoDescription">${model.events[selectedevent].description}</div>
+        <text>Lagt til av ${model.events[selectedevent].createdBy}</text>
       </div>
     </div>
   `;
+}
   return html;
 }
+
+function moodleSetupLongEvent(){
+  let selectedevent=model.inputs.calendar.selectedEventId;
+  let html='';
+  if(model.events[selectedevent].startDate.toLocaleDateString()===
+  model.events[selectedevent].endDate.toLocaleDateString()){
+    html=`<div class="moodle-top">
+    ${model.dayNames[model.events[selectedevent].startDate.getDay()]} ${model.events[selectedevent].startDate.toLocaleDateString('no-NO')}</br>
+      
+      <text>kl. ${model.events[selectedevent].startDate.toLocaleTimeString('no-NO').slice(0,5)}</text>
+      -
+      <text>kl. ${model.events[selectedevent].endDate.toLocaleTimeString('no-NO').slice(0,5)}</text>
+    </div>`;
+  }
+  else{
+    html=`
+    <div class="moodle-top">
+    ${model.dayNames[model.events[selectedevent].startDate.getDay()]} 
+    ${model.events[selectedevent].startDate.toLocaleDateString('no-NO')} 
+    kl. ${model.events[selectedevent].startDate.toLocaleTimeString('no-NO').slice(0,5)}</br>
+    - <br>
+    ${model.dayNames[model.events[selectedevent].endDate.getDay()]} 
+    ${model.events[selectedevent].endDate.toLocaleDateString('no-NO')} 
+    kl. ${model.events[selectedevent].endDate.toLocaleTimeString('no-NO').slice(0,5)}
+    </div>
+    `
+  }
+  return html;
+}
+
+// console.log(model.dayNames[model.events[0].startDate.getDay()] )
+// for later
+// ${model.dayNames[model.events[0].endDate.getDay()]} ${model.events[0].endDate.toLocaleDateString('no-NO')}
