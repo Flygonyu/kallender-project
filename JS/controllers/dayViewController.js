@@ -1,15 +1,17 @@
 // model.inputs.calendar.currentDay = new Date();
 // model.inputs.calendar.currentDay.setHours(0, 0, 0, 0);
 
-function previousDate(){
+function previousDate(skipDays){
     let currentDay=model.inputs.calendar.currentDay;
-    currentDay.setDate(currentDay.getDate()-1);
+    currentDay.setDate(currentDay.getDate()-skipDays);
+    currentDay=new Date(currentDay.setHours(+1));
     updateView();
 }
 
-function nextDate(){
+function nextDate(skipDays){
     let currentDay=model.inputs.calendar.currentDay;
-    currentDay.setDate(currentDay.getDate()+1);
+    currentDay.setDate(currentDay.getDate()+skipDays);
+    currentDay=new Date(currentDay.setHours(+1));
     updateView();
 }
 

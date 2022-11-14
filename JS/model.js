@@ -2,7 +2,7 @@ const model = {
   //app
   app: {
     currentUser: 1, //admin, Vanja
-    currentPage: "dayView", //signIn, createAccount, dayView,
+    currentPage: "weekView", //signIn, createAccount, dayView,
     //weekView, monthView, yearView, 
   },
 
@@ -93,40 +93,40 @@ const model = {
 
   events: [
     {
-      startDate: new Date("2022-11-08"),
-      endDate: new Date("2022-11-08"),
+      startDate: new Date("2022-11-14 01:00:00"),
+      endDate: new Date("2022-11-14 01:00:00"),
       title: "Møte",
       description: "Møte med Elin",
       createdBy: "Vanja", //if createdBy = currentUser or admin, allow edit
       category: "møte", //if category, lock color picker
-      color: "blue",
+      color: "#0D4C92",
     },
     {
-      startDate: new Date("2022-11-07"),
-      endDate: new Date("2022-11-07"),
+      startDate: new Date("2022-11-14 01:00:00"),
+      endDate: new Date("2022-11-14 01:00:00"),
       title: "Hyttetur",
       description: "Borte fra kontoret, ta kontakt via tlf.",
       createdBy: "Vanja",
       category: null, 
-      color: "pink",
+      color: "#FF8FB1",
     },
     {
-      startDate: new Date("2022-11-07"),
-      endDate: new Date("2022-11-10"),
+      startDate: new Date("2022-11-10 01:00:00"),
+      endDate: new Date("2022-11-15 01:00:00"),
       title: "Harrytur",
       description: "Handler bacon.",
       createdBy: "Fredrik",
       category: null, 
-      color: "red",
+      color: "#DC3535",
     },
     {
-      startDate: new Date("2022-11-06"),
-      endDate: new Date("2022-11-06"),
+      startDate: new Date("2022-11-15 01:00:00"),
+      endDate: new Date("2022-11-15 01:00:00"),
       title: "Movie time",
       description: "Surf's up best movie.",
       createdBy: "Fredrik",
       category: null, 
-      color: "hotPink",
+      color: "#E97777",
     },
   ],
 

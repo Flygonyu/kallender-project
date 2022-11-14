@@ -94,14 +94,15 @@ body{
     position: relative;
     top:5px;
 }
-.dayButton{
+.chosenButton{
     background-color: rgb(255, 145, 0);
     color: white;
 }
 
 .dayPicker{
-    margin: 30px;
+    margin: 30px 70vw 0 30vw;
     text-align: center;
+    min-width:500px;
     /* width: 700px; */
     /* clear:right; */
 }
@@ -259,4 +260,27 @@ body{
 .infoButtons{
     text-align: right;
     margin-right: 10px;
+}
+
+.weekGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    /* grid-template-rows: 50px auto; */
+    margin-top: 100px;
+    min-width: 1000px;
+}
+
+.weekHeader{
+    height: 50px;
+    width: auto;
+    background-color: gray;
+    border: 1px solid black;
+    text-align: center;
+    line-height: 50px;
+}
+
+.weekDayContent{
+    border: 1px solid black;
+    height: 600px;
+    /* height: fit-content; */
 }
