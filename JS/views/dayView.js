@@ -4,42 +4,40 @@ function dayView() {
   let selectedevent=model.inputs.calendar.selectedEventId;
   let html = "";
   html += `
-    <div class="dayViewTop">
+    <div class="">
         <div class="modeButtonsContainer">
             <button class="modeButton chosenButton">D</button>
             <button class="modeButton" onclick="changeView('weekView')">W</button>
-            <button class="modeButton" onclick="changeView('weekView')">M</button>
-            <button class="modeButton" onclick="changeView('weekView')">Y</button>
+            <button class="modeButton" onclick="changeView('monthView')">M</button>
+            <button class="modeButton" onclick="changeView('yearView')">Y</button>
         </div>
-        
+      </div>
         <button class="splitDayButton">Del dag</button>
         <div class="dayPicker">
             <button onclick="previousDate(${1})" class="back">&lt</button>
-            <div class="currentDaySeen">${model.inputs.calendar.currentDay.toDateString()}</div>
+            <div class="currentDaySeen" style="color:${weekendCheck(model.inputs.calendar.currentDay)}">${model.dayNames[model.inputs.calendar.currentDay.getDay()]} ${model.inputs.calendar.currentDay.getDate()}</div>
             <button onclick="nextDate(${1})" class="next">&gt</button>
         </div>
-            <div class="currentMonthSeen">
+        <div class="currentMonthSeen">
             ${model.months[model.inputs.calendar.currentDay.getMonth()]} 
             ${model.inputs.calendar.currentDay.getFullYear()}
-            </div>
-    </div>
-
-    
+        </div>
     <div class="mainDayView">
       <div class="dayOverView">
+      <div>
           ${showEventsThatDay()}
       </div>
-
-      <div class="detailsDayOverView" style="background-color:${chosenColor}">
-          ${model.inputs.calendar.selectedEventId != null ?
-          `<button class="submit" onclick="editMoodle()">✎</button>
-          ${model.events[model.inputs.calendar.selectedEventId].title}<br>
-          ${moodleSetupLongEvent()}
-          ${model.events[model.inputs.calendar.selectedEventId].description}<br>
-          Lagt til av ${model.events[model.inputs.calendar.selectedEventId].createdBy}
-          `
-          : ''}
       </div>
+      <div class="detailsDayOverView" style="background-color:${chosenColor}">
+      ${model.inputs.calendar.selectedEventId != null ?
+        `<button class="submit" onclick="editMoodle()">✎</button>
+        ${model.events[model.inputs.calendar.selectedEventId].title}<br>
+        ${moodleSetupLongEvent()}
+        ${model.events[model.inputs.calendar.selectedEventId].description}<br>
+        Lagt til av ${model.events[model.inputs.calendar.selectedEventId].createdBy}
+        `
+        : ''}
+        </div>
     </div>
     `;
   return html;
@@ -60,7 +58,7 @@ function showEventsThatDay() {
 
 // console.log(model.events[0].startDate.toDateString())
 // console.log(typeof model.inputs.calendar.currentDay.toJSON().split("T")[0])
-console.log(model.inputs.calendar.currentDay.toJSON())
+// console.log(model.inputs.calendar.currentDay.toJSON())
   for (let i = 0; i < model.events.length; i++) {
     if (model.events[i].startDate.toJSON().split('T')[0] <= model.inputs.calendar.currentDay.toJSON().split('T')[0] && 
     model.events[i].endDate.toJSON().split('T')[0]>= model.inputs.calendar.currentDay.toJSON().split('T')[0]) {

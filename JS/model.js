@@ -2,7 +2,7 @@ const model = {
   //app
   app: {
     currentUser: 1, //admin, Vanja
-    currentPage: "weekView", //signIn, createAccount, dayView,
+    currentPage: "monthView", //signIn, createAccount, dayView,
     //weekView, monthView, yearView, 
   },
 
@@ -127,6 +127,15 @@ const model = {
       createdBy: "Fredrik",
       category: null, 
       color: "#E97777",
+    },
+    {
+      startDate: new Date("2022-10-15 01:00:00"),
+      endDate: new Date("2022-11-15 01:00:00"),
+      title: "Epic coding",
+      description: "we're doing great",
+      createdBy: "Vanja",
+      category: null, 
+      color: "lightgreen",
     },
   ],
 

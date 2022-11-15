@@ -24,6 +24,8 @@ function selectedPage() {
     html = signInView();
   } else if (model.app.currentPage === "weekView") {
     html = weekView();
+  } else if (model.app.currentPage === "monthView") {
+    html = monthView();
   }
 
   return html;

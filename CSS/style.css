@@ -65,7 +65,7 @@ body{
 /* signInView end */
 
 .dayViewTop{
-    width:100vw;
+    
     height: 100px;
     text-align: center;
     min-width: 700px;
@@ -74,9 +74,12 @@ body{
 }
 
 .mainDayView{
+    /* margin-top:100px; */
     min-width: 900px;
     max-width: 1000px;
-    margin:auto;
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    margin:100px auto auto auto;
 }
 
 .modeButtonsContainer{
@@ -100,7 +103,7 @@ body{
 }
 
 .dayPicker{
-    margin: 30px 70vw 0 30vw;
+    margin: 30px 63vw 0 37vw;
     text-align: center;
     min-width:500px;
     /* width: 700px; */
@@ -133,6 +136,7 @@ body{
 
 .currentMonthSeen{
   float:right;
+  margin-right: 5vw;
   
 }
 .addEventButton{
@@ -152,7 +156,7 @@ body{
     height: 600px;
     width: 500px;
     background-color:aliceblue;
-    float:left;
+    /* margin-top: 100px; */
 }
 
 .singleEvent{
@@ -161,10 +165,14 @@ body{
 }
 
 .detailsDayOverView{
-    float:right;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    /* margin-top: 25px; */
     width:300px;
     border: 2px gray solid;
-    height: 600px;
+    height: 590px;
     padding:5px;
 }
 .moodle-main-card{
@@ -279,8 +287,41 @@ body{
     line-height: 50px;
 }
 
+.weekHeader0.weekHeader7{
+    height: 50px;
+    width: auto;
+    background-color: rgb(156, 53, 53);
+    border: 1px solid black;
+    text-align: center;
+    line-height: 50px;
+}
+
 .weekDayContent{
     border: 1px solid black;
     height: 600px;
     /* height: fit-content; */
+}
+
+.monthGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    height: 600px;
+    width: 100vw;
+    min-width: 1000px;
+    
+}
+.monthWeekGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    width: 100vw;
+    min-width: 1000px;
+    margin-top: 100px;
+    font-size: small;
+}
+
+.dayContainer{
+    border: 1px solid black;
+    width: auto;
+    font-size: smaller;
 }

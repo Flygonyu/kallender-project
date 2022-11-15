@@ -1,17 +1,18 @@
-function weekView(){
-    let html = ``
-    html+= `
+function weekView() {
+  let weeknr = model.inputs.calendar.currentDay;
+  let html = ``;
+  html += `
     <div class="">
         <div class="modeButtonsContainer">
             <button class="modeButton " onclick="changeView('dayView')">D</button>
             <button class="modeButton chosenButton" onclick="changeView('weekView')">W</button>
-            <button class="modeButton" onclick="changeView('dayView')">M</button>
-            <button class="modeButton" onclick="changeView('dayView')">Y</button>
+            <button class="modeButton" onclick="changeView('monthView')">M</button>
+            <button class="modeButton" onclick="changeView('yearView')">Y</button>
         </div>
     </div>
     <div class="dayPicker">
             <button onclick="previousDate(${7})" class="back">&lt</button>
-            <div class="currentDaySeen">uke ${getWeek(model.inputs.calendar.currentDay)}</div>
+            <div class="currentDaySeen">uke ${getWeek(weeknr)}</div>
             <button onclick="nextDate(${7})" class="next">&gt</button>
     </div>
     <div class="currentMonthSeen">
@@ -19,41 +20,42 @@ function weekView(){
             ${model.inputs.calendar.currentDay.getFullYear()}
     </div>
     <div class="weekGrid">
-        ${weekGridView()}
+    ${weekGridView()}
     </div>
         `;
-    return html;
+  return html;
 }
 
-function weekGridView(){
-    let html='';
-    let diffDaY=1-model.inputs.calendar.currentDay.getDay()
-    let firstday=new Date(model.inputs.calendar.currentDay.setDate(model.inputs.calendar.currentDay.getDate()+diffDaY))
-    let weekDates=firstday;
-    firstday = new Date(firstday.setHours(+1))
-    let week=0;
-    for (let i = 1; i < model.dayNames.length; i++) {
-        html+=`<div class="weekHeader">${model.dayNames[i]} ${weekDates.getDate()} </div>`;
-        weekDates=new Date(weekDates.setDate(weekDates.getDate()+1));
+function getCurrentDayEvents(day) {
+  let html = "";
+  model.events.forEach((event, index) => {
+    if (
+      event.startDate.toJSON().split("T")[0] <= day.toJSON().split("T")[0] &&
+      event.endDate.toJSON().split("T")[0] >= day.toJSON().split("T")[0]
+    ) {
+      html += `<div onclick="getEventsInfo(${index}) ${(hiddenInfo =
+        "")}" style="background-color: ${event.color};">${event.title}</div>`;
     }
-    html+=`<div class="weekHeader">${model.dayNames[0]} ${weekDates.getDate()}</div>`;
-    while(week<7){
-        html+=`<div class="weekDayContent" >${getCurrentDayEvents(firstday)}</div>`;
-        firstday=new Date(firstday.setDate(firstday.getDate()+1));
-      week++; 
-    }
-    return html;
+  });
+  return html;
 }
-// Se over. Mandag blir satt til 00:00 som gir forrige dag
 
-function getCurrentDayEvents(day){
-    let html='';
-    // console.log(day.toJSON().split('T'))
-    model.events.forEach((event,index)=>{
-        if(event.startDate.toJSON().split('T')[0]<=day.toJSON().split('T')[0]&&
-        event.endDate.toJSON().split('T')[0]>=day.toJSON().split('T')[0]){
-            html+=`<div onclick="getEventsInfo(${index}) ${hiddenInfo=''}" style="background-color: ${event.color};">${event.title}</div>`
-        }
-    })
-    return html
+function weekGridView() {
+  let html = "";
+  let firstday = getMonday();
+  for (let i = 1; i < model.dayNames.length + 1; i++) {
+    let index = i == 7 ? 0 : i;
+    html += `
+                <div>
+                    <div class="weekHeader" style="background-color:${weekendIndexCheck(index)}">${
+                      model.dayNames[index]
+                    } ${firstday.getDate()}</div>
+                    <div class="weekDayContent">${getCurrentDayEvents(
+                      firstday
+                    )}</div>
+                </div>
+            `
+    firstday = nextDay(firstday);
+  }
+  return html;
 }
