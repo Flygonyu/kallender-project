@@ -26,6 +26,8 @@ function selectedPage() {
     html = weekView();
   } else if (model.app.currentPage === "monthView") {
     html = monthView();
+  } else if (model.app.currentPage === "yearView") {
+    html = yearView();
   }
 
   return html;
@@ -149,9 +151,9 @@ function moodleSetupLongEvent(){
     html=`<div class="moodle-top">
     ${model.dayNames[model.events[selectedevent].startDate.getDay()]} ${model.events[selectedevent].startDate.toLocaleDateString('no-NO')}</br>
       
-      <text>kl. ${model.events[selectedevent].startDate.toLocaleTimeString('no-NO').slice(0,5)}</text>
+      <text>kl. ${model.events[selectedevent].startDate.toISOString().slice(11,16)}</text>
       -
-      <text>kl. ${model.events[selectedevent].endDate.toLocaleTimeString('no-NO').slice(0,5)}</text>
+      <text>kl. ${model.events[selectedevent].endDate.toISOString().slice(11,16)}</text>
     </div>`;
   }
   else{

@@ -7,6 +7,9 @@ function getFirstDayInCurrentMonth(date) {
 function diffToFirstDayInMonth(date,spearDays){
     return new Date(date.setDate(date.getDate()-spearDays));
 }
+function getFirstDayOfEachMonth(year, month){
+  return new Date(year,month,1,1,0,0);
+}
 
 function getWeek(date) {
   date.setHours(1, 0, 0, 0);
@@ -57,4 +60,8 @@ function weekendIndexCheck(currentDay) {
         dayColor= 'rgb(255, 145, 0)'
     }
     return dayColor;
+}
+
+function sortArrayAfterStartDate(){
+  return model.events.slice().sort((a,b)=>a.startDate-b.startDate)
 }

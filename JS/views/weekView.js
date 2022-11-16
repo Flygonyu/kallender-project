@@ -28,6 +28,7 @@ function weekView() {
 
 function getCurrentDayEvents(day) {
   let html = "";
+  // let sortedEvents=sortArrayAfterStartDate()
   model.events.forEach((event, index) => {
     if (
       event.startDate.toJSON().split("T")[0] <= day.toJSON().split("T")[0] &&

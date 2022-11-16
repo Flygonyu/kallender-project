@@ -55,10 +55,6 @@ function getEventsInfo(index) {
 function showEventsThatDay() {
   let html = "";
   let event = model.events;
-
-// console.log(model.events[0].startDate.toDateString())
-// console.log(typeof model.inputs.calendar.currentDay.toJSON().split("T")[0])
-// console.log(model.inputs.calendar.currentDay.toJSON())
   for (let i = 0; i < model.events.length; i++) {
     if (model.events[i].startDate.toJSON().split('T')[0] <= model.inputs.calendar.currentDay.toJSON().split('T')[0] && 
     model.events[i].endDate.toJSON().split('T')[0]>= model.inputs.calendar.currentDay.toJSON().split('T')[0]) {
@@ -71,23 +67,3 @@ function showEventsThatDay() {
   }
   return html;
 }
-
-// function test(){
-//   let d = new Date(new Date().toLocaleDateString()+' '+ new Date().toLocaleTimeString())
-//   console.log(d)
-// }
-// console.log(model.events[2].startDate.toJSON().split('T')[0])
-// "2022-11-07" < "2022-11-08" => true
-
-/* 
-
-
-*/
-
-//   if (model.events[i].startDate.toDateString() === model.inputs.calendar.currentDay.toDateString()) {
-//       html += `
-//         <div class="singleEvent" style="background-color: ${event[i].color};"
-//         onclick="getEventsInfo(${i})">
-//         ${model.events[i].title}
-//         </div>`;
-//     }

@@ -2,7 +2,7 @@ const model = {
   //app
   app: {
     currentUser: 1, //admin, Vanja
-    currentPage: "monthView", //signIn, createAccount, dayView,
+    currentPage: "yearView", //signIn, createAccount, dayView,
     //weekView, monthView, yearView, 
   },
 
@@ -93,8 +93,8 @@ const model = {
 
   events: [
     {
-      startDate: new Date("2022-11-14 01:00:00"),
-      endDate: new Date("2022-11-14 01:00:00"),
+      startDate: new Date("2022-11-14 11:00:00"),
+      endDate: new Date("2022-11-14 12:00:00"),
       title: "Møte",
       description: "Møte med Elin",
       createdBy: "Vanja", //if createdBy = currentUser or admin, allow edit
@@ -102,8 +102,8 @@ const model = {
       color: "#0D4C92",
     },
     {
-      startDate: new Date("2022-11-14 01:00:00"),
-      endDate: new Date("2022-11-14 01:00:00"),
+      startDate: new Date("2022-11-14 02:00:00"),
+      endDate: new Date("2022-11-14 02:00:00"),
       title: "Hyttetur",
       description: "Borte fra kontoret, ta kontakt via tlf.",
       createdBy: "Vanja",
@@ -129,7 +129,7 @@ const model = {
       color: "#E97777",
     },
     {
-      startDate: new Date("2022-10-15 01:00:00"),
+      startDate: new Date("2022-10-15 02:00:00"),
       endDate: new Date("2022-11-15 01:00:00"),
       title: "Epic coding",
       description: "we're doing great",

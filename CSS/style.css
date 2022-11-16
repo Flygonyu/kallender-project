@@ -325,3 +325,37 @@ body{
     width: auto;
     font-size: smaller;
 }
+
+.yearGrid{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    height:600px;
+    width:100vw;
+    margin-top: 100px;
+    min-width: 1000px;
+}
+
+.monthHeader{
+    height: 30px;
+    width: auto;
+    background-color: gray;
+    border: 1px solid black;
+    text-align: center;
+    line-height: 30px;
+    font-size: smaller;
+}
+
+.monthContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+    border: 1px solid black;
+    height: 180px;
+}
+
+.dayYearContainer{
+    font-size: xx-small;
+    max-height: 35px;
+    min-height: 20px;
+}

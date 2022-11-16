@@ -39,7 +39,7 @@ function drawMonthView() {
     html += `
             <div class="dayContainer">
                 <div style="color:${weekendCheck(mondayStart)}">${mondayStart.getDate()}</div>
-                <div>${getCurrentDayEvents(mondayStart)}</div>
+                <div>${getCurrentMonthEvents(mondayStart)}</div>
             </div>
         `;
         mondayStart=nextDay(mondayStart);
@@ -56,15 +56,19 @@ function drawWeekGrid() {
   }
   return html;
 }
+// model.events.sort((a,b)=>a.startDate-b.startDate) sortering av array
 
-// function addEmptyDivs(){
-//     let html='';
-//     html=`
-//     <div class="dayContainer">
-//         <div></div>
-//         <div></div>
-//     </div> 
-//     `;
-//     return html
-// }
-
+function getCurrentMonthEvents(day) {
+  let html = "";
+  // let sortedEvents=sortArrayAfterStartDate()
+  model.events.forEach((event, index) => {
+    if (
+      event.startDate.toJSON().split("T")[0] <= day.toJSON().split("T")[0] &&
+      event.endDate.toJSON().split("T")[0] >= day.toJSON().split("T")[0]
+    ) {
+      html += `<div onclick="getEventsInfo(${index}) ${(hiddenInfo =
+        "")}" style="background-color: ${event.color};">${event.title}</div>`;
+    }
+  });
+  return html;
+}

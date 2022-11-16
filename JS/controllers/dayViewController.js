@@ -4,7 +4,7 @@ function previousDate(skipDays){
         currentDay.setMonth(currentDay.getMonth()-skipDays);
     }
     else if(model.app.currentPage==='yearView'){
-
+        currentDay.setFullYear(currentDay.getFullYear()-skipDays);
     }
     else{
         currentDay.setDate(currentDay.getDate()-skipDays);
@@ -18,7 +18,7 @@ function nextDate(skipDays){
         currentDay.setMonth(currentDay.getMonth()+skipDays);
     }
     else if(model.app.currentPage==='yearView'){
-
+        currentDay.setFullYear(currentDay.getFullYear()+skipDays);
     }
     else{
     currentDay.setDate(currentDay.getDate()+skipDays);
