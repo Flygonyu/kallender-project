@@ -3,14 +3,16 @@ function addEvent() {
   if (
     addEvent.title !== "" &&
     addEvent.startDate !== "" &&
-    addEvent.endDate !== ""
+    addEvent.endDate !== ""&&
+    addEvent.color !== ""
   ) {
+    
     disabled = '';
     let dateY=new Date(addEvent.startDate);
     let dateX = new Date(addEvent.endDate);
     let xEndDate = dateX.setHours(dateX.getHours() + 1);
     let yStartDate=dateY.setHours(dateY.getHours()+1);
-
+    
     const event = {
       startDate: new Date(yStartDate),
       endDate: new Date(xEndDate),
@@ -38,8 +40,11 @@ function addEvent() {
 
 function resetAddEventMoodle() {
   hiddenAdd = "hidden";
+  disabled='';
   model.inputs.calendar.editEvent.title = "";
   model.inputs.calendar.editEvent.description = "";
+  model.inputs.calendar.editEvent.color = "";
+  model.inputs.calendar.editEvent.category = "Velg en kategori";
   model.inputs.calendar.editEvent.startDate = new Date();
   model.inputs.calendar.editEvent.endDate = new Date();
   updateView();
@@ -47,6 +52,7 @@ function resetAddEventMoodle() {
 
 function closeInfo(){
   hiddenInfo = 'hidden';
+  
   model.inputs.calendar.selectedEventId = null;
   chosenColor= 'orange';
   updateView();
@@ -62,23 +68,23 @@ function editEvent(){
   if (
     editEvent.title !== "" &&
     editEvent.startDate !== "" &&
-    editEvent.endDate !== ""
+    editEvent.endDate !== ""&&
+    editEvent.color !== ""
   ) {
-  let dateY=new Date(editEvent.startDate);
-  yStartDate=new Date(dateY.setHours(dateY.getHours()+1));
-
-
-  let dateX = new Date(editEvent.endDate);
-  xEndDate = new Date(dateX.setHours(dateX.getHours() + 1));
-
-  
-  model.events[selectedevent].title = editEvent.title;
-  model.events[selectedevent].startDate = yStartDate;
-  model.events[selectedevent].endDate = xEndDate;
-  model.events[selectedevent].description = editEvent.description;
-  model.events[selectedevent].category = editEvent.category;
-  model.events[selectedevent].color = editEvent.color;
-  hiddenEdit = 'hidden'
+      let dateY=new Date(editEvent.startDate);
+      yStartDate=new Date(dateY.setHours(dateY.getHours()+1));
+    
+    
+      let dateX = new Date(editEvent.endDate);
+      xEndDate = new Date(dateX.setHours(dateX.getHours() + 1));
+      
+      model.events[selectedevent].title = editEvent.title;
+      model.events[selectedevent].startDate = yStartDate;
+      model.events[selectedevent].endDate = xEndDate;
+      model.events[selectedevent].description = editEvent.description;
+      model.events[selectedevent].category = editEvent.category;
+      model.events[selectedevent].color = editEvent.color;
+      hiddenEdit = 'hidden'
   }else console.log('feil')
   updateView();
 }
@@ -87,6 +93,9 @@ function editMoodle(){
   hiddenEdit='';
   let editEvent = model.inputs.calendar.editEvent;
   let selectedevent=model.inputs.calendar.selectedEventId;
+  if(editEvent.category!=='annet'&&editEvent.category!==''){
+    disabled='disabled';
+  }
   editEvent.title=model.events[selectedevent].title;
   editEvent.category=model.events[selectedevent].category;
   editEvent.color=model.events[selectedevent].color;
@@ -102,4 +111,18 @@ function closeEdit(){
   updateView();
 }
 
-
+function chosenCategory(input){
+  model.inputs.calendar.editEvent.category=input;
+    if(input===''||input==='annet'){
+      disabled='';
+    }
+    else if(input==='møte'){
+      model.inputs.calendar.editEvent.color='#0D4C92';
+      disabled='disabled';
+    }
+    else if(input==='ferie'){
+      model.inputs.calendar.editEvent.color='#59C1BD';
+      disabled='disabled';
+    }
+  updateView()
+}

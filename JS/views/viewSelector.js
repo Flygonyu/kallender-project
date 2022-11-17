@@ -47,22 +47,27 @@ function addEventMoodle(){
       <div class="moodle-form  ${errorMsg}">
         <div class="moodle-top">
           <input class="moodle-title" type="text" oninput="model.inputs.calendar.editEvent.title=this.value" value="${model.inputs.calendar.editEvent.title}" placeholder="tittel">
-          <select class="moodle-category" onchange="model.inputs.calendar.editEvent.category=this.value" name="">
-            <option value="${null}">Velg en kategori</option>
+          <select class="moodle-category" value="" onchange="chosenCategory(this.value)" name="">
+            <option value="Velg en kategori">${model.inputs.calendar.editEvent.category != null ? model.inputs.calendar.editEvent.category : 'Velg en kategori'}</option>
             <option value="møte">møte</option>
             <option value="ferie">ferie</option>
             <option value="annet">annet</option>
           </select>
         </div>
         <div class="moodle-top">
-        <input class="colorPicker" value="${model.inputs.calendar.editEvent.color}" onchange="model.inputs.calendar.editEvent.color=this.value" type="color">
+        <input ${disabled} value="${model.inputs.calendar.editEvent.color}" class="colorPicker" type="color" list="presets" onchange="model.inputs.calendar.editEvent.color=this.value">
+          <datalist id="presets">
+            <option value="#975C8D">Grey</option>
+            <option value="#EF9A53">White</option>
+            <option value="#497174">Blue</option>
+          </datalist>        
           starter:
           <input class="datePicker" value="${model.inputs.calendar.editEvent.startDate}" onchange="model.inputs.calendar.editEvent.startDate=this.value" type="datetime-local">
           slutter:
           <input class="datePicker" value="${model.inputs.calendar.editEvent.endDate}" onchange="model.inputs.calendar.editEvent.endDate=this.value" type="datetime-local">
         </div>
         <input class="moodle-top description" value="${model.inputs.calendar.editEvent.description}" oninput="model.inputs.calendar.editEvent.description=this.value" type="text" placeholder="beskrivelse"><br>
-        <button class="submit" ${disabled} onclick="addEvent()">Legg Til Event</button>
+        <button class="submit" onclick="addEvent()">Legg Til Event</button>
         <button class="cancel" onclick="resetAddEventMoodle()">Avslutt</button>
         ${errorMsg===''?'':moodleErrorMsg()}
       </div>
@@ -70,6 +75,15 @@ function addEventMoodle(){
   `;
   return html;
 }
+
+{/* <select class="colorPicker" style="background-color:${model.inputs.calendar.editEvent.color}" onchange="model.inputs.calendar.editEvent.color=this.value" name="">
+            <option style="background-color:gray" value="gray">g</option>
+            <option style="background-color:red" value="red">r</option>
+            <option style="background-color:blue" value="blue">b</option>
+            <option style="background-color:green" value="green">g</option>
+        </select> */}
+        
+// <input class="colorPicker" value="${model.inputs.calendar.editEvent.color}" onchange="model.inputs.calendar.editEvent.color=this.value" type="color"></input> */}
 
 function editEventMoodle(){
   
@@ -81,23 +95,28 @@ function editEventMoodle(){
     <div class="moodle-main-card ${hiddenEdit}">
       <div class="moodle-form  ${errorMsg}">
         <div class="moodle-top">
-          <input class="moodle-title" type="text" onload="model.inputs.calendar.editEvent.title=this.value" value="${model.events[selectedevent].title}" oninput="model.inputs.calendar.editEvent.title=this.value" placeholder="tittel">
-          <select class="moodle-category" value="${model.events[selectedevent].category}" onchange="model.inputs.calendar.editEvent.category=this.value" name="">
-            <option value="${model.events[selectedevent].category}">${model.events[selectedevent].category != null ? model.events[selectedevent].category : 'Velg en kategori'}</option>
+          <input class="moodle-title" type="text"  value="${model.inputs.calendar.editEvent.title}" oninput="model.inputs.calendar.editEvent.title=this.value" placeholder="tittel">
+          <select class="moodle-category" value="${model.inputs.calendar.editEvent.category}" onchange="chosenCategory(this.value)" name="">
+            <option value="${model.inputs.calendar.editEvent.category}">${model.inputs.calendar.editEvent.category != null ? model.inputs.calendar.editEvent.category : 'Velg en kategori'}</option>
             <option value="møte">møte</option>
             <option value="ferie">ferie</option>
             <option value="annet">annet</option>
           </select>
         </div>
         <div class="moodle-top">
-        <input class="colorPicker" value="${model.events[selectedevent].color}" onchange="model.inputs.calendar.editEvent.color=this.value" type="color">
+        <input ${disabled} value="${model.inputs.calendar.editEvent.color}" class="colorPicker" type="color" list="presets" onchange="model.inputs.calendar.editEvent.color=this.value">
+        <datalist id="presets">
+          <option value="#975C8D">Grey</option>
+          <option value="#EF9A53">White</option>
+          <option value="#497174">Blue</option>
+        </datalist>   
           starter:
           <input class="datePicker" value="${model.events[selectedevent].startDate.toISOString().slice(0,16)}" onchange="model.inputs.calendar.editEvent.startDate=this.value" type="datetime-local">
           slutter:
           <input class="datePicker" value="${model.events[selectedevent].endDate.toISOString().slice(0,16)}" onchange="model.inputs.calendar.editEvent.endDate=this.value" type="datetime-local">
         </div>
-        <input class="moodle-top description" value="${model.events[selectedevent].description}" oninput="model.inputs.calendar.editEvent.description=this.value" type="text" placeholder="beskrivelse"><br>
-        <button class="submit" ${disabled} onclick="editEvent()">Endre</button>
+        <input class="moodle-top description" value="${model.inputs.calendar.editEvent.description}" oninput="model.inputs.calendar.editEvent.description=this.value" type="text" placeholder="beskrivelse"><br>
+        <button class="submit" onclick="editEvent()">Endre</button>
         <button class="cancel" onclick="closeEdit()">Avslutt</button>
         ${errorMsg===''?'':moodleErrorMsg()}
       </div>
@@ -112,7 +131,7 @@ function editEventMoodle(){
 function moodleErrorMsg(){
   let html='';
   html=`
-    <div class="moodle-error-box">Du må minimum fylle ut startdato, sluttdato og tittel</div>
+    <div class="moodle-error-box">Du må minimum fylle ut tittel, farge, startdato og sluttdato </div>
   `;
   return html;
 }

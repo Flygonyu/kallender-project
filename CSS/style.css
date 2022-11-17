@@ -247,13 +247,14 @@ body{
 }
 
 .datePicker{
-    width: 160px;
+    width: 150px;
 }
 
 .colorPicker{
-    border-radius: 200px; /*BE A CIRCLE FFS*/
-    width: 30px;
-    height: 30px;
+    border-radius: 100px; 
+    width: 50px;
+    height: 25px;
+    padding: 0;
 }
 .moodle-error-msg{
     height: 550px;
