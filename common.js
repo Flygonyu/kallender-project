@@ -32,6 +32,7 @@ function getWeek(date) {
 function changeView(screen) {
   model.app.currentPage = screen;
   model.inputs.calendar.selectedEventId = null;
+  chosenColor='orange'
   updateView();
 }
 
@@ -64,4 +65,61 @@ function weekendIndexCheck(currentDay) {
 
 function sortArrayAfterStartDate(){
   return model.events.slice().sort((a,b)=>a.startDate-b.startDate)
+}
+
+function getFirstEaster( y ) {
+  let date, a, b, c, m, d;
+  // Instantiate the date object.
+  date = new Date;
+  // Set the timestamp to midnight.
+  date.setHours( 2, 0, 0, 0 );
+  // Set the year.
+  date.setFullYear( y );
+  // Find the golden number.
+  a = y % 19;
+  // Choose which version of the algorithm to use based on the given year.
+  b = ( 2200 <= y && y <= 2299 ) ?
+      ( ( 11 * a ) + 4 ) % 30 :
+      ( ( 11 * a ) + 5 ) % 30;
+  // Determine whether or not to compensate for the previous step.
+  c = ( ( b === 0 ) || ( b === 1 && a > 10 ) ) ?
+      ( b + 1 ) :
+      b;
+  // Use c first to find the month: April or March.
+  m = ( 1 <= c && c <= 19 ) ? 3 : 2;
+  // Then use c to find the full moon after the northward equinox.
+  d = ( 50 - c ) % 31;
+  // Mark the date of that full moon—the "Paschal" full moon.
+  date.setMonth( m, d );
+  // Count forward the number of days until the following Sunday (Easter).
+  date.setMonth( m, d + ( 7 - date.getDay() ) );
+  // Gregorian Western Easter Sunday
+  return date;
+}
+getHolidays()
+function getHolidays(){
+  let currentDay=model.inputs.calendar.currentDay;
+  let firsdayofNovember=new Date(currentDay.getFullYear(),10,1);
+  let diffDays=7-firsdayofNovember.getDay()
+  
+  let firstEasterDay=getFirstEaster(currentDay.getFullYear());
+  model.holidays[0].date=new Date(currentDay.getFullYear(),0,1,1,0,0);
+  model.holidays[7].date=firstEasterDay;
+  model.holidays[3].date = new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()-7));
+  model.holidays[4].date=new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()-3));
+  model.holidays[5].date=new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()-2));
+  model.holidays[6].date=new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()-1));
+  model.holidays[8].date=new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()+1));
+  model.holidays[2].date=new Date(currentDay.getFullYear(),2,8,1,0,0)
+  model.holidays[1].date = new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()-49));
+  model.holidays[9].date=new Date(currentDay.getFullYear(),4,1,1,0,0);
+  model.holidays[10].date=new Date(currentDay.getFullYear(),4,17,1,0,0);
+  model.holidays[11].date=new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()+39));
+  model.holidays[12].date=new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()+48));
+  model.holidays[13].date=new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()+49));
+  model.holidays[14].date=new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()+50));
+  model.holidays[15].date=new Date(currentDay.getFullYear(),5,23,1,0,0);
+  model.holidays[16].date=new Date(firsdayofNovember.setDate(firsdayofNovember.getDate()+diffDays));
+  model.holidays[21].date=new Date(currentDay.getFullYear(),11,24,1,0,0);
+  console.log(model.holidays)
 }

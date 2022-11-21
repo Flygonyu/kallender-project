@@ -2,8 +2,10 @@ const model = {
   //app
   app: {
     currentUser: 1, //admin, Vanja
-    currentPage: "yearView", //signIn, createAccount, dayView,
+    currentPage: "dayView",
+     //signIn, createAccount, dayView,
     //weekView, monthView, yearView, 
+    errmsg:'',
   },
 
   //inputs
@@ -93,8 +95,8 @@ const model = {
 
   events: [
     {
-      startDate: new Date("2022-11-14 11:00:00"),
-      endDate: new Date("2022-11-14 12:00:00"),
+      startDate: new Date("2022-11-21 11:00:00"),
+      endDate: new Date("2022-11-21 12:00:00"),
       title: "Møte",
       description: "Møte med Elin",
       createdBy: "Vanja", //if createdBy = currentUser or admin, allow edit
@@ -102,8 +104,8 @@ const model = {
       color: "#0D4C92",
     },
     {
-      startDate: new Date("2022-11-14 02:00:00"),
-      endDate: new Date("2022-11-14 02:00:00"),
+      startDate: new Date("2022-11-21 11:00:00"),
+      endDate: new Date("2022-11-21 12:00:00"),
       title: "Hyttetur",
       description: "Borte fra kontoret, ta kontakt via tlf.",
       createdBy: "Vanja",
@@ -161,7 +163,7 @@ const model = {
 
   holidays: [
     {
-      date: "01.01",
+      date: new Date('01.01.2022'),
       name: "Nyttårsdag",
     },
     {
@@ -174,7 +176,7 @@ const model = {
     },
     {
       date: "",
-      name: "palmesøndag",
+      name: "Palmesøndag",
     },
     {
       date: "",
@@ -189,16 +191,76 @@ const model = {
       name: "Påskeaften",
     },
     {
-      date: "17.05",
-      name: "17 Mai",
+      date: "",
+      name: "1. påskedag",
     },
     {
       date: "",
+      name: "2. påskedag",
+    },
+    {
+      date: "01.05",
+      name: "Arbeidernes dag",
+    },
+    {
+      date: "17.05",
+      name: "Grunnlovsdagen",
+    },
+    {
+      date: "",
+      name: "Kristi himmelfartsdag",
+    },
+    {
+      date: "",
+      name: "Pinseaften",
+    },
+    {
+      date: "",
+      name: "1. pinsedag",
+    },
+    {
+      date: "",
+      name: "2. pinsedag",
+    },
+    {
+      date: "23.06",
       name: "Sankthans",
+    },
+    {
+      date: "",
+      name: "Allehelgensdag",
+    },
+    {
+      date: "",
+      name: "1. søndag i advent",
+    },
+    {
+      date: "",
+      name: "2. søndag i advent",
+    },
+    {
+      date: "",
+      name: "3. søndag i advent",
+    },
+    {
+      date: "",
+      name: "4. søndag i advent",
     },
     {
       date: "24.12",
       name: "Julaften",
+    },
+    {
+      date: "",
+      name: "1. juledag",
+    },
+    {
+      date: "",
+      name: "2. juledag",
+    },
+    {
+      date: "",
+      name: "Nyttårsaften",
     },
   ],
 };

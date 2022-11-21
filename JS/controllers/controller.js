@@ -1,5 +1,10 @@
 function addEvent() {
   let addEvent = model.inputs.calendar.editEvent;
+  
+  if(addEvent.endDate<addEvent.startDate){
+  errorMessage('Startdato må være tidligere enn sluttdato');
+  return  
+  }//Må vise feilmelding
   if (
     addEvent.title !== "" &&
     addEvent.startDate !== "" &&
@@ -26,12 +31,7 @@ function addEvent() {
     resetAddEventMoodle();
   }
   else{
-    errorMsg='moodle-error-msg'
-    updateView()
-    setTimeout(function (){
-        errorMsg='';
-        updateView();
-    },5000)
+    errorMessage('Du må minimum fylle ut tittel, farge, startdato og sluttdato')
   }
   
 }
@@ -61,7 +61,9 @@ function closeInfo(){
 function editEvent(){
   let editEvent = model.inputs.calendar.editEvent;
   let selectedevent=model.inputs.calendar.selectedEventId;
-
+  if(editEvent.endDate<editEvent.startDate){
+    errorMessage('Startdato må være tidligere enn sluttdato')
+    return}
   let xEndDate;
   let yStartDate;
 
@@ -85,7 +87,7 @@ function editEvent(){
       model.events[selectedevent].category = editEvent.category;
       model.events[selectedevent].color = editEvent.color;
       hiddenEdit = 'hidden'
-  }else console.log('feil')
+  }else errorMessage('Du må minimum fylle ut tittel, farge, startdato og sluttdato');
   updateView();
 }
 
@@ -125,4 +127,21 @@ function chosenCategory(input){
       disabled='disabled';
     }
   updateView()
+}
+
+function deleteTask(){
+  chosenColor='orange';
+  model.events.splice(model.inputs.calendar.selectedEventId,1);
+  model.inputs.calendar.selectedEventId=null;
+  updateView();
+}
+
+function errorMessage(errmsg){
+  errorMsg='moodle-error-msg'
+    model.app.errmsg=errmsg
+    updateView()
+    setTimeout(function (){
+        errorMsg='';
+        updateView();
+    },5000)
 }

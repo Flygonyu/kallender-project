@@ -131,7 +131,7 @@ function editEventMoodle(){
 function moodleErrorMsg(){
   let html='';
   html=`
-    <div class="moodle-error-box">Du må minimum fylle ut tittel, farge, startdato og sluttdato </div>
+    <div class="moodle-error-box">${model.app.errmsg}</div>
   `;
   return html;
 }
@@ -145,6 +145,7 @@ function infoMoodle(){
     <div class="moodle-main-card ${hiddenInfo}">
       <div class="infoMoodle" style="background-color:${model.events[selectedevent].color};">
       <div class="infoButtons">
+        <button class="delete" onclick="deleteTask()">🗑</button>
         <button class="submit" onclick="editMoodle()">✎</button>
         <button class="cancel" onclick="closeInfo()">X</button>
       </div>  

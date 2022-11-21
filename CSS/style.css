@@ -156,12 +156,15 @@ body{
     height: 600px;
     width: 500px;
     background-color:aliceblue;
+    overflow-y: scroll;
+    overflow-x: hidden;
     /* margin-top: 100px; */
 }
 
 .singleEvent{
     height:auto;
-    padding:5px;
+    padding: 2px;
+    width: 100%;
 }
 
 .detailsDayOverView{
@@ -359,4 +362,35 @@ body{
     font-size: xx-small;
     max-height: 35px;
     min-height: 20px;
+}
+
+.hourGrid{
+    display: grid;
+    grid-template-columns: 1fr 23fr;
+}
+
+.hour{
+    border: 1px solid grey;
+    width: 50px;
+    text-align: center;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+  }
+
+::-webkit-scrollbar-thumb {
+    background: rgb(255, 145, 0);
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 145, 0, 0.5);
+}
+
+.multipleDayEvents{
+    position: sticky;
+    bottom: 0;
+}
+.eventsHours{
+    display: flex;
 }
