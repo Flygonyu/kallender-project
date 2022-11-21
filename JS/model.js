@@ -25,6 +25,7 @@ const model = {
 
     calendar: {
       currentDay: new Date(),       //toISOString
+      currentYear: new Date().getFullYear(),
       mode: "day", //day, month, week, year
       splitDay: true,
       selectedEventId:null,

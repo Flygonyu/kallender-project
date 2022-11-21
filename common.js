@@ -99,8 +99,11 @@ function getFirstEaster( y ) {
 getHolidays()
 function getHolidays(){
   let currentDay=model.inputs.calendar.currentDay;
-  let firsdayofNovember=new Date(currentDay.getFullYear(),10,1);
-  let diffDays=7-firsdayofNovember.getDay()
+  let firsdayofNovember=new Date(currentDay.getFullYear(),10,1,1,0,0);
+  let diffDaysNov=7-firsdayofNovember.getDay()
+  let xmas=new Date(currentDay.getFullYear(),11,24,1,0,0);
+  let diffDaysDes=0-xmas.getDay();
+  let sundayBeforeXmas=new Date(new Date(xmas.toISOString()).setDate(xmas.getDate()+diffDaysDes))
   
   let firstEasterDay=getFirstEaster(currentDay.getFullYear());
   model.holidays[0].date=new Date(currentDay.getFullYear(),0,1,1,0,0);
@@ -119,7 +122,13 @@ function getHolidays(){
   model.holidays[13].date=new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()+49));
   model.holidays[14].date=new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()+50));
   model.holidays[15].date=new Date(currentDay.getFullYear(),5,23,1,0,0);
-  model.holidays[16].date=new Date(firsdayofNovember.setDate(firsdayofNovember.getDate()+diffDays));
-  model.holidays[21].date=new Date(currentDay.getFullYear(),11,24,1,0,0);
-  console.log(model.holidays)
+  model.holidays[16].date=new Date(firsdayofNovember.setDate(firsdayofNovember.getDate()+diffDaysNov));
+  model.holidays[17].date=new Date(new Date(sundayBeforeXmas.toISOString()).setDate(sundayBeforeXmas.getDate()-21))
+  model.holidays[18].date=new Date(new Date(sundayBeforeXmas.toISOString()).setDate(sundayBeforeXmas.getDate()-14))
+  model.holidays[19].date=new Date(new Date(sundayBeforeXmas.toISOString()).setDate(sundayBeforeXmas.getDate()-7))
+  model.holidays[20].date=sundayBeforeXmas;
+  model.holidays[21].date=xmas;
+  model.holidays[22].date=new Date(currentDay.getFullYear(),11,25,1,0,0);
+  model.holidays[23].date=new Date(currentDay.getFullYear(),11,26,1,0,0);
+  model.holidays[24].date=new Date(currentDay.getFullYear(),11,31,23,0,0);
 }

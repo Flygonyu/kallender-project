@@ -39,6 +39,7 @@ function drawMonthView() {
     html += `
             <div class="dayContainer">
                 <div style="color:${weekendCheck(mondayStart)}">${mondayStart.getDate()}</div>
+                <div>${drawHolidays(mondayStart)}</div>
                 <div>${getCurrentMonthEvents(mondayStart)}</div>
             </div>
         `;

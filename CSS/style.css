@@ -394,3 +394,8 @@ body{
 .eventsHours{
     display: flex;
 }
+
+.yearHoliday{
+    font-size: 5px;
+    color: red;
+}

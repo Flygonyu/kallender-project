@@ -44,6 +44,7 @@ function drawMonthGrid(index){
         html += `
             <div class="dayYearContainer">
                 <div style="color:${weekendCheck(DaysThisMonth)}">${DaysThisMonth.getDate()}</div>
+                <div>${drawHolidays(DaysThisMonth)}</div>
                 <div>${getCurrentMonthEvents(DaysThisMonth)}</div>
             </div>
         `;
@@ -61,6 +62,16 @@ function drawEmptyDivs(arrayLength){
             <div></div>
         </div>
     `;
+    }
+    return html;
+}
+
+function drawHolidays(day){
+    let html='';
+    for (let i = 0; i < model.holidays.length; i++) {
+        if(model.holidays[i].date.toJSON().split("T")[0] == day.toJSON().split("T")[0]){
+            html += `<div class="yearHoliday">${model.holidays[i].name}</div>`;
+        }  
     }
     return html;
 }

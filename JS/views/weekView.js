@@ -44,6 +44,7 @@ function getCurrentDayEvents(day) {
 function weekGridView() {
   let html = "";
   let firstday = getMonday();
+  
   for (let i = 1; i < model.dayNames.length + 1; i++) {
     let index = i == 7 ? 0 : i;
     html += `
@@ -51,11 +52,12 @@ function weekGridView() {
                     <div class="weekHeader" style="background-color:${weekendIndexCheck(index)}">${
                       model.dayNames[index]
                     } ${firstday.getDate()}</div>
+                    <div>${drawHolidays(firstday)}</div>
                     <div class="weekDayContent">${getCurrentDayEvents(
                       firstday
                     )}</div>
                 </div>
-            `
+                `
     firstday = nextDay(firstday);
   }
   return html;

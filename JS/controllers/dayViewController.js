@@ -9,6 +9,10 @@ function previousDate(skipDays){
     else{
         currentDay.setDate(currentDay.getDate()-skipDays);
     }
+    if (model.inputs.calendar.currentYear !== currentDay.getFullYear()){
+        getHolidays();
+        model.inputs.calendar.currentYear = currentDay.getFullYear();
+    }
     updateView();
 }
 
@@ -21,7 +25,11 @@ function nextDate(skipDays){
         currentDay.setFullYear(currentDay.getFullYear()+skipDays);
     }
     else{
-    currentDay.setDate(currentDay.getDate()+skipDays);
+        currentDay.setDate(currentDay.getDate()+skipDays);
+    }
+    if (model.inputs.calendar.currentYear !== currentDay.getFullYear()){
+        getHolidays();
+        model.inputs.calendar.currentYear = currentDay.getFullYear();
     }
     updateView();
 }
