@@ -19,6 +19,7 @@ function weekView() {
             ${model.months[model.inputs.calendar.currentDay.getMonth()]} 
             ${model.inputs.calendar.currentDay.getFullYear()}
     </div>
+    <button onclick="jumpToday()">Hopp til dagens dato</button>
     <div class="weekGrid">
     ${weekGridView()}
     </div>
@@ -26,36 +27,18 @@ function weekView() {
   return html;
 }
 
-function getCurrentDayEvents(day) {
-  let html = "";
-  // let sortedEvents=sortArrayAfterStartDate()
-  model.events.forEach((event, index) => {
-    if (
-      event.startDate.toJSON().split("T")[0] <= day.toJSON().split("T")[0] &&
-      event.endDate.toJSON().split("T")[0] >= day.toJSON().split("T")[0]
-    ) {
-      html += `<div onclick="getEventsInfo(${index}) ${(hiddenInfo =
-        "")}" style="background-color: ${event.color};">${event.title}</div>`;
-    }
-  });
-  return html;
-}
-
 function weekGridView() {
   let html = "";
   let firstday = getMonday();
-  
   for (let i = 1; i < model.dayNames.length + 1; i++) {
     let index = i == 7 ? 0 : i;
     html += `
                 <div>
-                    <div class="weekHeader" style="background-color:${weekendIndexCheck(index)}">${
-                      model.dayNames[index]
-                    } ${firstday.getDate()}</div>
-                    <div>${drawHolidays(firstday)}</div>
-                    <div class="weekDayContent">${getCurrentDayEvents(
-                      firstday
-                    )}</div>
+                    <div class="weekHeader" style="background-color:${weekendIndexCheck(index)}">
+                    ${model.dayNames[index]} ${firstday.getDate()}</div>
+                    <div class="weekDayContent">
+                    <div class="weekHoliday">${drawHolidays(firstday)}</div>
+                    ${getCurrentEvents(firstday)}</div>
                 </div>
                 `
     firstday = nextDay(firstday);

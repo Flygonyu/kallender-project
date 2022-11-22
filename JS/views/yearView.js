@@ -14,7 +14,7 @@ function yearView() {
               <div class="currentDaySeen">${model.inputs.calendar.currentDay.getFullYear()}</div>
               <button onclick="nextDate(${1})" class="next">&gt</button>
       </div>
-
+      <button onclick="jumpToday()">Hopp til dagens dato</button>
       <div class="yearGrid">
       ${drawYearGrid()}
       </div>
@@ -44,8 +44,8 @@ function drawMonthGrid(index){
         html += `
             <div class="dayYearContainer">
                 <div style="color:${weekendCheck(DaysThisMonth)}">${DaysThisMonth.getDate()}</div>
-                <div>${drawHolidays(DaysThisMonth)}</div>
-                <div>${getCurrentMonthEvents(DaysThisMonth)}</div>
+                <div class="yearHoliday">${drawHolidays(DaysThisMonth)}</div>
+                <div>${getCurrentEvents(DaysThisMonth)}</div>
             </div>
         `;
         DaysThisMonth=nextDay(DaysThisMonth);
@@ -62,16 +62,6 @@ function drawEmptyDivs(arrayLength){
             <div></div>
         </div>
     `;
-    }
-    return html;
-}
-
-function drawHolidays(day){
-    let html='';
-    for (let i = 0; i < model.holidays.length; i++) {
-        if(model.holidays[i].date.toJSON().split("T")[0] == day.toJSON().split("T")[0]){
-            html += `<div class="yearHoliday">${model.holidays[i].name}</div>`;
-        }  
     }
     return html;
 }

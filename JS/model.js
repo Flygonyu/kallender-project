@@ -24,10 +24,10 @@ const model = {
     },
 
     calendar: {
+      chosenColor: "orange",
       currentDay: new Date(),       //toISOString
       currentYear: new Date().getFullYear(),
-      mode: "day", //day, month, week, year
-      splitDay: true,
+      splitDay: false,
       selectedEventId:null,
       eventEditMode: false,
       editEvent: {          //create if selectedEventId=null
@@ -37,8 +37,6 @@ const model = {
         color: "",
         startDate: "",
         endDate: "",
-        startTime: "",
-        endTime: "",
         description: "",
       },
     },
@@ -96,8 +94,8 @@ const model = {
 
   events: [
     {
-      startDate: new Date("2022-11-21 11:00:00"),
-      endDate: new Date("2022-11-21 12:00:00"),
+      startDate: new Date("2022-11-22 11:00:00"),
+      endDate: new Date("2022-11-22 12:00:00"),
       title: "Møte",
       description: "Møte med Elin",
       createdBy: "Vanja", //if createdBy = currentUser or admin, allow edit
@@ -105,8 +103,8 @@ const model = {
       color: "#0D4C92",
     },
     {
-      startDate: new Date("2022-11-21 11:00:00"),
-      endDate: new Date("2022-11-21 12:00:00"),
+      startDate: new Date("2022-11-22 11:00:00"),
+      endDate: new Date("2022-11-22 12:00:00"),
       title: "Hyttetur",
       description: "Borte fra kontoret, ta kontakt via tlf.",
       createdBy: "Vanja",
@@ -159,110 +157,8 @@ const model = {
         color: ''
     },
   ],
-
-  isLeapYear: false, //? not sure where to put this
-
   holidays: [
-    {
-      date: new Date('01.01.2022'),
-      name: "Nyttårsdag",
-    },
-    {
-      date: "",
-      name: "Fastelavnssøndag",
-    },
-    {
-      date: "08.03",
-      name: "Den internasjonale kvinnedagen",
-    },
-    {
-      date: "",
-      name: "Palmesøndag",
-    },
-    {
-      date: "",
-      name: "Skjærtorsdag",
-    },
-    {
-      date: "",
-      name: "Langfredag",
-    },
-    {
-      date: "",
-      name: "Påskeaften",
-    },
-    {
-      date: "",
-      name: "1. påskedag",
-    },
-    {
-      date: "",
-      name: "2. påskedag",
-    },
-    {
-      date: "01.05",
-      name: "Arbeidernes dag",
-    },
-    {
-      date: "17.05",
-      name: "Grunnlovsdagen",
-    },
-    {
-      date: "",
-      name: "Kristi himmelfartsdag",
-    },
-    {
-      date: "",
-      name: "Pinseaften",
-    },
-    {
-      date: "",
-      name: "1. pinsedag",
-    },
-    {
-      date: "",
-      name: "2. pinsedag",
-    },
-    {
-      date: "23.06",
-      name: "Sankthans",
-    },
-    {
-      date: "",
-      name: "Allehelgensdag",
-    },
-    {
-      date: "",
-      name: "1. søndag i advent",
-    },
-    {
-      date: "",
-      name: "2. søndag i advent",
-    },
-    {
-      date: "",
-      name: "3. søndag i advent",
-    },
-    {
-      date: "",
-      name: "4. søndag i advent",
-    },
-    {
-      date: "24.12",
-      name: "Julaften",
-    },
-    {
-      date: "",
-      name: "1. juledag",
-    },
-    {
-      date: "",
-      name: "2. juledag",
-    },
-    {
-      date: "",
-      name: "Nyttårsaften",
-    },
+    
   ],
 };
 

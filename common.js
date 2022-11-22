@@ -32,7 +32,7 @@ function getWeek(date) {
 function changeView(screen) {
   model.app.currentPage = screen;
   model.inputs.calendar.selectedEventId = null;
-  chosenColor='orange'
+  model.inputs.calendar.chosenColor = 'orange'
   updateView();
 }
 
@@ -96,38 +96,173 @@ function getFirstEaster( y ) {
   // Gregorian Western Easter Sunday
   return date;
 }
+
 getHolidays()
 function getHolidays(){
-  let currentDay = model.inputs.calendar.currentDay;
-  let firsdayofNovember = new Date(currentDay.getFullYear(),10,1,1,0,0);
-  let diffDaysNov = 7-firsdayofNovember.getDay()
-  let xmas = new Date(currentDay.getFullYear(),11,24,1,0,0);
-  let diffDaysDes = 0-xmas.getDay();
-  let sundayBeforeXmas = new Date(new Date(xmas.toISOString()).setDate(xmas.getDate()+diffDaysDes))
-  let firstEasterDay = getFirstEaster(currentDay.getFullYear());
-  model.holidays[0].date = new Date(currentDay.getFullYear(),0,1,1,0,0);
-  model.holidays[7].date = firstEasterDay;
-  model.holidays[3].date = new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()-7));
-  model.holidays[4].date = new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()-3));
-  model.holidays[5].date = new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()-2));
-  model.holidays[6].date = new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()-1));
-  model.holidays[8].date = new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()+1));
-  model.holidays[2].date = new Date(currentDay.getFullYear(),2,8,1,0,0)
-  model.holidays[1].date = new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()-49));
-  model.holidays[9].date = new Date(currentDay.getFullYear(),4,1,1,0,0);
-  model.holidays[10].date = new Date(currentDay.getFullYear(),4,17,1,0,0);
-  model.holidays[11].date = new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()+39));
-  model.holidays[12].date = new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()+48));
-  model.holidays[13].date = new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()+49));
-  model.holidays[14].date = new Date(new Date(firstEasterDay.toISOString()).setDate(firstEasterDay.getDate()+50));
-  model.holidays[15].date = new Date(currentDay.getFullYear(),5,23,1,0,0);
-  model.holidays[16].date = new Date(firsdayofNovember.setDate(firsdayofNovember.getDate()+diffDaysNov));
-  model.holidays[17].date = new Date(new Date(sundayBeforeXmas.toISOString()).setDate(sundayBeforeXmas.getDate()-21))
-  model.holidays[18].date = new Date(new Date(sundayBeforeXmas.toISOString()).setDate(sundayBeforeXmas.getDate()-14))
-  model.holidays[19].date = new Date(new Date(sundayBeforeXmas.toISOString()).setDate(sundayBeforeXmas.getDate()-7))
-  model.holidays[20].date = sundayBeforeXmas;
-  model.holidays[21].date = xmas;
-  model.holidays[22].date = new Date(currentDay.getFullYear(),11,25,1,0,0);
-  model.holidays[23].date = new Date(currentDay.getFullYear(),11,26,1,0,0);
-  model.holidays[24].date = new Date(currentDay.getFullYear(),11,31,23,0,0);
+    model.holidays=[].concat(createHolidaysEasterAndBefore(), createHolidaysAfterEaster());
 }
+
+function createHolidaysEasterAndBefore(){
+  let currentDay = model.inputs.calendar.currentDay;
+  let firstEasterDay = getFirstEaster(currentDay.getFullYear());
+  return [
+      holidayObj(specificDate(1,1), "Nyttårsdag"),
+      holidayObj(dateFromDateAndDays(firstEasterDay,-49), "Fastelavnssøndag"),
+      holidayObj(specificDate(8,3),'Den internasjonale kvinnedagen'),
+      holidayObj(dateFromDateAndDays(firstEasterDay,-7),"Palmesøndag"),
+      holidayObj(dateFromDateAndDays(firstEasterDay,-3),"Skjærtorsdag"),
+      holidayObj(dateFromDateAndDays(firstEasterDay,-2),"Langfredag"),
+      holidayObj(dateFromDateAndDays(firstEasterDay,-1),"Påskeaften"),
+      holidayObj(firstEasterDay,"1. påskedag"),
+      holidayObj(dateFromDateAndDays(firstEasterDay,1),"2. påskedag"),
+      holidayObj(specificDate(1,5),"Arbeidernes dag"),
+      holidayObj(specificDate(17,5),"Grunnlovsdagen"),
+      holidayObj(dateFromDateAndDays(firstEasterDay,39),"Kristi himmelfartsdag"),
+      holidayObj(dateFromDateAndDays(firstEasterDay,48),"Pinseaften"),
+      holidayObj(dateFromDateAndDays(firstEasterDay,49),"1. pinsedag"),
+      holidayObj(dateFromDateAndDays(firstEasterDay,50),"2. pinsedag"),
+    ];
+}
+
+function createHolidaysAfterEaster(){
+  let xmas = specificDate(24,12);
+  let diffDaysDes = 0-xmas.getDay();
+  let sundayBeforeXmas = dateFromDateAndDays(xmas,diffDaysDes);
+  let firstdayofNovember = specificDate(1,11);
+  let diffDaysNov = 7-firstdayofNovember.getDay()
+  return [
+    holidayObj(specificDate(23,6), "Sankthans"),
+    holidayObj(dateFromDateAndDays(firstdayofNovember,diffDaysNov), "Allehelgensdag"),
+    holidayObj(dateFromDateAndDays(sundayBeforeXmas,-21), "1. søndag i advent"),
+    holidayObj(dateFromDateAndDays(sundayBeforeXmas,-14), "2. søndag i advent"),
+    holidayObj(dateFromDateAndDays(sundayBeforeXmas,-7), "3. søndag i advent"),
+    holidayObj(sundayBeforeXmas, "4. søndag i advent"),
+    holidayObj(xmas, "Julaften"),
+    holidayObj(specificDate(25,12), "1. juledag"),
+    holidayObj(specificDate(26,12), "2. juledag"),
+    holidayObj(specificDate(31,12), "Nyttårsaften"),
+  ]
+}
+
+function holidayObj(date, name){
+  return {date, name};
+  // return {date: date, name: name};
+}
+
+function dateFromDateAndDays(date,days){
+  return new Date(new Date(date.toISOString()).setDate(date.getDate()+days))
+}
+
+function specificDate(day, month){
+  return new Date(currentYear(), month - 1, day, 1, 0, 0);
+}
+
+function currentYear(){
+  let currentDay = model.inputs.calendar.currentDay;
+  return currentDay.getFullYear();
+}
+
+function jumpToday(){
+  model.inputs.calendar.currentDay = new Date();
+  if (model.inputs.calendar.currentYear !== model.inputs.calendar.currentDay.getFullYear()){
+    getHolidays();
+  }
+  updateView();
+}
+
+function areDatePartsEqual(date1, date2){
+  return dateOnly(date1) == dateOnly(date2)
+}
+
+function dateOnly(date){
+  return date.toJSON().split("T")[0];
+}
+
+function timeOnly(date){
+  return date.toJSON().split('T')[1].slice(0,5);
+}
+
+function getEventsInfo(index) {
+  model.inputs.calendar.selectedEventId = index;
+  model.inputs.calendar.chosenColor = model.events[model.inputs.calendar.selectedEventId].color;
+  updateView();
+}
+
+function previousDate(skipDays){
+  let currentDay=model.inputs.calendar.currentDay;
+  if(model.app.currentPage==='monthView'){
+      currentDay.setMonth(currentDay.getMonth()-skipDays);
+  }
+  else if(model.app.currentPage==='yearView'){
+      currentDay.setFullYear(currentDay.getFullYear()-skipDays);
+  }
+  else{
+      currentDay.setDate(currentDay.getDate()-skipDays);
+  }
+  if (model.inputs.calendar.currentYear !== currentDay.getFullYear()){
+      getHolidays();
+      model.inputs.calendar.currentYear = currentDay.getFullYear();
+  }
+  updateView();
+}
+
+function nextDate(skipDays){
+  let currentDay=model.inputs.calendar.currentDay;
+  if(model.app.currentPage==='monthView'){
+      currentDay.setMonth(currentDay.getMonth()+skipDays);
+  }
+  else if(model.app.currentPage==='yearView'){
+      currentDay.setFullYear(currentDay.getFullYear()+skipDays);
+  }
+  else{
+      currentDay.setDate(currentDay.getDate()+skipDays);
+  }
+  if (model.inputs.calendar.currentYear !== currentDay.getFullYear()){
+      getHolidays();
+      model.inputs.calendar.currentYear = currentDay.getFullYear();
+  }
+  updateView();
+}
+
+
+
+
+
+
+
+
+
+
+// let currentDay = model.inputs.calendar.currentDay;
+//   let firstdayofNovember = specificDate(1,11);
+//   let diffDaysNov = 7-firstdayofNovember.getDay()
+//   let xmas = specificDate(24,12);
+//   let diffDaysDes = 0-xmas.getDay();
+//   let sundayBeforeXmas = dateFromDateAndDays(xmas,diffDaysDes);
+//   let firstEasterDay = getFirstEaster(currentDay.getFullYear());
+//   model.holidays[0].date = specificDate(1,1);
+//   model.holidays[1].date = dateFromDateAndDays(firstEasterDay,-49);
+//   model.holidays[2].date = specificDate(8,3);
+//   model.holidays[3].date = dateFromDateAndDays(firstEasterDay,-7);
+//   model.holidays[4].date = dateFromDateAndDays(firstEasterDay,-3);
+//   model.holidays[5].date = dateFromDateAndDays(firstEasterDay,-2);
+//   model.holidays[6].date = dateFromDateAndDays(firstEasterDay,-1);
+//   model.holidays[7].date = firstEasterDay;
+//   model.holidays[8].date = dateFromDateAndDays(firstEasterDay,1);
+//   model.holidays[9].date = specificDate(1,5);
+//   model.holidays[10].date = specificDate(17,5);
+//   model.holidays[11].date = dateFromDateAndDays(firstEasterDay,39);
+//   model.holidays[12].date = dateFromDateAndDays(firstEasterDay,48);
+//   model.holidays[13].date = dateFromDateAndDays(firstEasterDay,49);
+//   model.holidays[14].date = dateFromDateAndDays(firstEasterDay,50);
+//   model.holidays[15].date = specificDate(23,6);
+//   model.holidays[16].date = dateFromDateAndDays(firstdayofNovember,diffDaysNov);
+//   //model.holidays[16].date = new Date(firstdayofNovember.setDate(firstdayofNovember.getDate()+diffDaysNov));
+//   model.holidays[17].date = dateFromDateAndDays(sundayBeforeXmas,-21);
+//   model.holidays[18].date = dateFromDateAndDays(sundayBeforeXmas,-14);
+//   model.holidays[19].date = dateFromDateAndDays(sundayBeforeXmas,-7);
+//   model.holidays[20].date = sundayBeforeXmas;
+//   model.holidays[21].date = xmas;
+//   model.holidays[22].date = specificDate(25,12);
+//   model.holidays[23].date = specificDate(26,12);
+//   model.holidays[24].date = specificDate(31,12);

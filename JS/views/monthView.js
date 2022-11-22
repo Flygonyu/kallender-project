@@ -11,14 +11,15 @@ function monthView() {
     </div>
     <div class="dayPicker">
             <button onclick="previousDate(${1})" class="back">&lt</button>
-            <div class="currentDaySeen">${
-              model.months[model.inputs.calendar.currentDay.getMonth()]
-            }</div>
+            <div class="currentDaySeen">
+            ${model.months[model.inputs.calendar.currentDay.getMonth()]}
+            </div>
             <button onclick="nextDate(${1})" class="next">&gt</button>
     </div>
     <div class="currentMonthSeen"> 
             ${model.inputs.calendar.currentDay.getFullYear()}
     </div>
+    <button onclick="jumpToday()">Hopp til dagens dato</button>
     <div class="monthWeekGrid">
         ${drawWeekGrid()}
     </div>
@@ -31,16 +32,18 @@ function monthView() {
 
 function drawMonthView() {
   let html = "";
-  let currentDay=model.inputs.calendar.currentDay
-  let firstDayInMonth=getFirstDayInCurrentMonth(currentDay);
-  let divsToAdd=firstDayInMonth.getDay()==0?6:firstDayInMonth.getDay()-1;
-  let mondayStart = diffToFirstDayInMonth(firstDayInMonth,divsToAdd);
-  for (let i = -divsToAdd;i < getDaysCurrentMonth(currentDay);i++) {
+  let currentDay = model.inputs.calendar.currentDay
+  let firstDayInMonth = getFirstDayInCurrentMonth(currentDay);
+  let divsToAdd = firstDayInMonth.getDay() == 0 ? 6 : firstDayInMonth.getDay() - 1;
+  let mondayStart = diffToFirstDayInMonth(firstDayInMonth, divsToAdd);
+  for (let i = -divsToAdd; i < getDaysCurrentMonth(currentDay); i++) {
     html += `
             <div class="dayContainer">
-                <div style="color:${weekendCheck(mondayStart)}">${mondayStart.getDate()}</div>
-                <div>${drawHolidays(mondayStart)}</div>
-                <div>${getCurrentMonthEvents(mondayStart)}</div>
+                <div style="color:${weekendCheck(mondayStart)}">${mondayStart.getDate()}
+                  <div class="monthHoliday">${drawHolidays(mondayStart)}
+                  </div>
+                </div>
+                <div>${getCurrentEvents(mondayStart)}</div>
             </div>
         `;
         mondayStart=nextDay(mondayStart);
@@ -49,7 +52,6 @@ function drawMonthView() {
 }
 
 function drawWeekGrid() {
-
   let html = "";
   for (let i = 1; i < model.dayNames.length + 1; i++) {
     let index = i == 7 ? 0 : i;
@@ -58,18 +60,3 @@ function drawWeekGrid() {
   return html;
 }
 // model.events.sort((a,b)=>a.startDate-b.startDate) sortering av array
-
-function getCurrentMonthEvents(day) {
-  let html = "";
-  // let sortedEvents=sortArrayAfterStartDate()
-  model.events.forEach((event, index) => {
-    if (
-      event.startDate.toJSON().split("T")[0] <= day.toJSON().split("T")[0] &&
-      event.endDate.toJSON().split("T")[0] >= day.toJSON().split("T")[0]
-    ) {
-      html += `<div onclick="getEventsInfo(${index}) ${(hiddenInfo =
-        "")}" style="background-color: ${event.color};">${event.title}</div>`;
-    }
-  });
-  return html;
-}

@@ -4,31 +4,30 @@ function addEvent() {
   if(addEvent.endDate<addEvent.startDate){
   errorMessage('Startdato må være tidligere enn sluttdato');
   return  
-  }//Må vise feilmelding
+  }
   if (
     addEvent.title !== "" &&
     addEvent.startDate !== "" &&
     addEvent.endDate !== ""&&
     addEvent.color !== ""
   ) {
-    
-    disabled = '';
-    let dateY=new Date(addEvent.startDate);
-    let dateX = new Date(addEvent.endDate);
-    let xEndDate = dateX.setHours(dateX.getHours() + 1);
-    let yStartDate=dateY.setHours(dateY.getHours()+1);
-    
-    const event = {
-      startDate: new Date(yStartDate),
-      endDate: new Date(xEndDate),
-      title: addEvent.title,
-      description: addEvent.description,
-      createdBy: model.app.currentUser,
-      category: addEvent.category,
-      color: addEvent.color,
-    };
-    model.events.push(event);
-    resetAddEventMoodle();
+      disabled = '';
+      let dateY=new Date(addEvent.startDate);
+      let dateX = new Date(addEvent.endDate);
+      let xEndDate = dateX.setHours(dateX.getHours() + 1);
+      let yStartDate = dateY.setHours(dateY.getHours() + 1);
+      
+      const event = {
+        startDate: new Date(yStartDate),
+        endDate: new Date(xEndDate),
+        title: addEvent.title,
+        description: addEvent.description,
+        createdBy: model.app.currentUser,
+        category: addEvent.category,
+        color: addEvent.color,
+      };
+      model.events.push(event);
+      resetAddEventMoodle();
   }
   else{
     errorMessage('Du må minimum fylle ut tittel, farge, startdato og sluttdato')
@@ -39,22 +38,22 @@ function addEvent() {
 // 
 
 function resetAddEventMoodle() {
+  let editEvent = model.inputs.calendar.editEvent;
   hiddenAdd = "hidden";
   disabled='';
-  model.inputs.calendar.editEvent.title = "";
-  model.inputs.calendar.editEvent.description = "";
-  model.inputs.calendar.editEvent.color = "";
-  model.inputs.calendar.editEvent.category = "Velg en kategori";
-  model.inputs.calendar.editEvent.startDate = new Date();
-  model.inputs.calendar.editEvent.endDate = new Date();
+  editEvent.title = "";
+  editEvent.description = "";
+  editEvent.color = "";
+  editEvent.category = "Velg en kategori";
+  editEvent.startDate = new Date();
+  editEvent.endDate = new Date();
   updateView();
 }
 
 function closeInfo(){
   hiddenInfo = 'hidden';
-  
   model.inputs.calendar.selectedEventId = null;
-  chosenColor= 'orange';
+  model.inputs.calendar.chosenColor = 'orange';
   updateView();
 }
 
@@ -64,8 +63,6 @@ function editEvent(){
   if(editEvent.endDate<editEvent.startDate){
     errorMessage('Startdato må være tidligere enn sluttdato')
     return}
-  let xEndDate;
-  let yStartDate;
 
   if (
     editEvent.title !== "" &&
@@ -74,20 +71,16 @@ function editEvent(){
     editEvent.color !== ""
   ) {
       let dateY=new Date(editEvent.startDate);
-      yStartDate=new Date(dateY.setHours(dateY.getHours()+1));
-    
-    
       let dateX = new Date(editEvent.endDate);
-      xEndDate = new Date(dateX.setHours(dateX.getHours() + 1));
       
       model.events[selectedevent].title = editEvent.title;
-      model.events[selectedevent].startDate = yStartDate;
-      model.events[selectedevent].endDate = xEndDate;
+      model.events[selectedevent].startDate = dateY;
+      model.events[selectedevent].endDate = dateX;
       model.events[selectedevent].description = editEvent.description;
       model.events[selectedevent].category = editEvent.category;
       model.events[selectedevent].color = editEvent.color;
       hiddenEdit = 'hidden'
-  }else errorMessage('Du må minimum fylle ut tittel, farge, startdato og sluttdato');
+  } else errorMessage('Du må minimum fylle ut tittel, farge, startdato og sluttdato');
   updateView();
 }
 
@@ -130,7 +123,7 @@ function chosenCategory(input){
 }
 
 function deleteTask(){
-  chosenColor='orange';
+  model.inputs.calendar.chosenColor ='orange';
   model.events.splice(model.inputs.calendar.selectedEventId,1);
   model.inputs.calendar.selectedEventId=null;
   updateView();
