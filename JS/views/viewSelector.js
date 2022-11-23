@@ -1,18 +1,24 @@
 let hiddenAdd = 'hidden';
 let hiddenInfo = 'hidden';
 let hiddenEdit = 'hidden';
+let hiddenMenu ='hidden';
+let hiddenbutton='';
+let hiddenOption='';
 let errorMsg='';
 
 function updateView() {
   let html = `<div class="header">
-                <div class="menu-button"></div>
+                <div class="menu-button" onclick="showMenuMoodle()"><i class="menu-icon">☰</i></div>
             </div>
             
             ${selectedPage()}
             ${addEventMoodle()}
             ${infoMoodle()}
             ${editEventMoodle()}
-            <button class="addEventButton" onclick="showEventMoodle()">+</button>`;
+            ${menuMoodle()}
+            <button class="addEventButton" onclick="showEventMoodle()"
+            ${hiddenbutton=model.app.currentPage=='signInView'||model.app.currentPage=='createAccountView'?
+            'hidden':''}>+</button>`;
   document.getElementById("app").innerHTML = html;
 }
 
@@ -28,8 +34,15 @@ function selectedPage() {
     html = monthView();
   } else if (model.app.currentPage === "yearView") {
     html = yearView();
+  } else if(model.app.currentPage === 'createAccountView'){
+    html = createAccountView()
   }
   return html;
+}
+
+function showMenuMoodle(){
+  hiddenMenu= hiddenMenu=='hidden'?'':'hidden';
+  updateView();
 }
 
 function showEventMoodle(){
@@ -59,6 +72,8 @@ function addEventMoodle(){
             <option value="#975C8D">Grey</option>
             <option value="#EF9A53">White</option>
             <option value="#497174">Blue</option>
+            <option value="#EBA83A">Orange</option>
+            <option value="#A27B5C">Orange</option>
           </datalist>        
           starter:
           <input class="datePicker" value="${model.inputs.calendar.editEvent.startDate}" onchange="model.inputs.calendar.editEvent.startDate=this.value" type="datetime-local">
@@ -98,6 +113,8 @@ function editEventMoodle(){
           <option value="#975C8D">Grey</option>
           <option value="#EF9A53">White</option>
           <option value="#497174">Blue</option>
+          <option value="#EBA83A">Orange</option>
+          <option value="#A27B5C">Orange</option>
         </datalist>   
           starter:
           <input class="datePicker" value="${model.events[selectedevent].startDate.toISOString().slice(0,16)}" onchange="model.inputs.calendar.editEvent.startDate=this.value" type="datetime-local">
@@ -133,8 +150,14 @@ function infoMoodle(){
     <div class="moodle-main-card ${hiddenInfo}">
       <div class="infoMoodle" style="background-color:${events[selectedevent].color};">
       <div class="infoButtons">
-        <button class="delete" onclick="deleteTask()">🗑</button>
-        <button class="submit" onclick="editMoodle()">✎</button>
+        <button class="delete" onclick="deleteTask()"
+        ${hiddenOption=model.app.currentUser===model.users.map(user=>user.username).indexOf(events[selectedevent].createdBy)||
+          model.users[model.app.currentUser].isAdmin?
+        '':'hidden'}>🗑</button>
+        <button class="submit" onclick="editMoodle()"
+        ${hiddenOption=model.app.currentUser===model.users.map(user=>user.username).indexOf(events[selectedevent].createdBy)||
+          model.users[model.app.currentUser].isAdmin?
+          '':'hidden'}>✎</button>
         <button class="cancel" onclick="closeInfo()">X</button>
       </div>  
       <div class="moodle-top">
@@ -178,5 +201,20 @@ function moodleSetupLongEvent(){
     </div>
     `
   }
+  return html;
+}
+
+function menuMoodle(){
+  let html='';
+  html=`
+    <div class="moodle-main-card ${hiddenMenu}" >
+      <div class="moodle-menu-card">
+        <div class="menu-button" onclick="showMenuMoodle()"><i class="menu-icon">☰</i></div>
+        <div class="moodle-menu-logIn-button" onclick="showLogInView()">Logg Inn</div>
+        <div class="moodle-menu-createAcc-button" onclick="showCreateAccView()">Lag Ny Bruker</div>
+        <div class="moodle-menu-callender-button" onclick="showDayView()">Kalender</div>
+      </div>
+    </div>
+  `;
   return html;
 }

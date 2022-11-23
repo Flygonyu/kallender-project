@@ -182,8 +182,13 @@ function timeOnly(date){
   return date.toJSON().split('T')[1].slice(0,5);
 }
 
-function getEventsInfo(index) {
-  model.inputs.calendar.selectedEventId = index;
+// function getEventsInfo(index) {
+//   model.inputs.calendar.selectedEventId = index;
+//   model.inputs.calendar.chosenColor = model.events[model.inputs.calendar.selectedEventId].color;
+//   updateView();
+// }
+function getEventsInfo(id) {
+  model.inputs.calendar.selectedEventId = model.events.map(event=>event.id).indexOf(id);
   model.inputs.calendar.chosenColor = model.events[model.inputs.calendar.selectedEventId].color;
   updateView();
 }

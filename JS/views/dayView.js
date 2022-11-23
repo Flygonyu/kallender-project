@@ -58,9 +58,34 @@ function dayView() {
   return html;
 }
 
+// function showEventsThatDay(hoursOfTheDay) {
+//   let html = "";
+//   let events = model.events;
+//   const currentDay = model.inputs.calendar.currentDay;
+//   for (let i = 0; i < events.length; i++) {
+//     const event = events[i];
+//     if (areDatePartsEqual(event.startDate, event.endDate)) {
+//       if (areDatePartsEqual(event.startDate, currentDay)) {
+//         if (
+//           event.startDate.toLocaleTimeString("no-NO") <=
+//             hoursOfTheDay.toLocaleTimeString("no-NO") &&
+//           event.endDate.toLocaleTimeString("no-NO") >=
+//             hoursOfTheDay.toLocaleTimeString("no-NO")
+//         ) {
+//           html += `
+//             <div class="singleEvent" style="background-color: ${event.color};"
+//             onclick="getEventsInfo(${event.id})">
+//             ${event.title}
+//             </div>`;
+//         }
+//       }
+//     }
+//   }
+//   return html;
+// }
 function showEventsThatDay(hoursOfTheDay) {
   let html = "";
-  let events = model.events;
+  let events = sortArrayAfterStartDate();
   const currentDay = model.inputs.calendar.currentDay;
   for (let i = 0; i < events.length; i++) {
     const event = events[i];
@@ -74,7 +99,7 @@ function showEventsThatDay(hoursOfTheDay) {
         ) {
           html += `
             <div class="singleEvent" style="background-color: ${event.color};"
-            onclick="getEventsInfo(${i})">
+            onclick="getEventsInfo(${event.id})">
             ${event.title}
             </div>`;
         }
@@ -98,7 +123,7 @@ function eventsOverMultipleDays() {
       ) {
          html += `
            <div class="singleEvent" style="background-color: ${event.color};"
-            onclick="getEventsInfo(${i})">
+            onclick="getEventsInfo(${event.id})">
             ${event.title}
            </div>`;
       }

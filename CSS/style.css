@@ -23,6 +23,16 @@ body{
     top: 5px;
     left: 5px;
 }
+.menu-icon{
+    font-style: normal;
+    font-size: 1.5rem;
+    margin: 0;
+    position: inherit;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    user-select: none;
+}
 
 .dayPicker{
     margin: 30px 63vw 0 37vw;
@@ -83,7 +93,7 @@ body{
 
 .sign-in{
     width: 400px;
-    height: 400px;
+    height: auto;
     background-color: #D9D9D9;
     border-radius: 15px;
     text-align: center;
@@ -113,6 +123,76 @@ body{
     border-radius: 0px 0px 15px 15px;
 }
 /* signInView end */
+
+/* menuMoodle start */
+.moodle-menu-card{
+    width: 400px;
+    height: 100vh;
+    background-color: rgb(255, 145, 0);
+    z-index: 1000;
+    border-radius: 0px 15px 15px 0px;
+}
+.moodle-menu-logIn-button:hover{
+    background-color: rgb(193, 131, 51);
+}
+.moodle-menu-createAcc-button:hover{
+    background-color: rgb(193, 131, 51);
+}
+.moodle-menu-callender-button:hover{
+    background-color: rgb(193, 131, 51);
+}
+.moodle-menu-logIn-button{
+    height: 50px;
+    position: relative;
+    top: 25%;
+    text-align: center;
+    font-size: 2rem;
+    color: white;
+    user-select: none;
+}
+.moodle-menu-createAcc-button{
+    height: 50px;
+    text-align: center;
+    position: relative;
+    top: 30%;
+    font-size: 2rem;
+    color: white;
+    user-select: none;
+}
+.moodle-menu-callender-button{
+    height: 50px;
+    text-align: center;
+    position: relative;
+    top: 35%;
+    font-size: 2rem;
+    color: white;
+    user-select: none;
+}
+/* menuMoodle End */
+
+/* createAccountView start*/
+.createAccount-container{
+    width: 400px;
+    height: auto;
+    background-color: #D9D9D9;
+    border-radius: 15px;
+    text-align: center;
+    margin: auto;
+    margin-top: 10vh;
+}
+.createInputs{
+    height: 30px;
+    width: 300px;
+    margin: 20px 0px 0px 0px;
+    text-align: center; 
+}
+.createLastInputs{
+    height: 30px;
+    width: 300px;
+    margin: 20px 0px 50px 0px;
+    text-align: center; 
+}
+/* createAccountView end*/
 
 .dayViewTop{
     

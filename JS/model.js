@@ -1,8 +1,8 @@
 const model = {
   //app
   app: {
-    currentUser: 1, //admin, Vanja
-    currentPage: "dayView",
+    currentUser: 2, //admin, Vanja
+    currentPage: "monthView",
      //signIn, createAccount, dayView,
     //weekView, monthView, yearView, 
     errmsg:'',
@@ -60,9 +60,9 @@ const model = {
     },
     {
       id: 3,
-      email: "",
-      username: "",
-      passwrd: "",
+      email: "fredrik@email.com",
+      username: "Fredrik",
+      passwrd: "456",
       isAdmin: false,
     },
   ],
@@ -94,6 +94,7 @@ const model = {
 
   events: [
     {
+      id:1,
       startDate: new Date("2022-11-22 11:00:00"),
       endDate: new Date("2022-11-22 12:00:00"),
       title: "Møte",
@@ -103,6 +104,7 @@ const model = {
       color: "#0D4C92",
     },
     {
+      id:2,
       startDate: new Date("2022-11-22 11:00:00"),
       endDate: new Date("2022-11-22 12:00:00"),
       title: "Hyttetur",
@@ -112,6 +114,7 @@ const model = {
       color: "#FF8FB1",
     },
     {
+      id:3,
       startDate: new Date("2022-11-10 01:00:00"),
       endDate: new Date("2022-11-15 01:00:00"),
       title: "Harrytur",
@@ -121,6 +124,7 @@ const model = {
       color: "#DC3535",
     },
     {
+      id:4,
       startDate: new Date("2022-11-15 01:00:00"),
       endDate: new Date("2022-11-15 01:00:00"),
       title: "Movie time",
@@ -130,6 +134,7 @@ const model = {
       color: "#E97777",
     },
     {
+      id:5,
       startDate: new Date("2022-10-15 02:00:00"),
       endDate: new Date("2022-11-15 01:00:00"),
       title: "Epic coding",

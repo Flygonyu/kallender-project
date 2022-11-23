@@ -18,11 +18,12 @@ function addEvent() {
       let yStartDate = dateY.setHours(dateY.getHours() + 1);
       
       const event = {
+        id:model.events.length+1,
         startDate: new Date(yStartDate),
         endDate: new Date(xEndDate),
         title: addEvent.title,
         description: addEvent.description,
-        createdBy: model.app.currentUser,
+        createdBy: model.users[model.app.currentUser].username,
         category: addEvent.category,
         color: addEvent.color,
       };
@@ -137,4 +138,18 @@ function errorMessage(errmsg){
         errorMsg='';
         updateView();
     },5000)
+}
+
+function showLogInView(){
+  model.app.currentPage='signInView';
+  updateView();
+}
+
+function showCreateAccView(){
+  model.app.currentPage='createAccountView';
+  updateView();
+}
+function showDayView(){
+  model.app.currentPage='dayView';
+  updateView();
 }
