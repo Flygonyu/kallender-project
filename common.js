@@ -33,6 +33,7 @@ function changeView(screen) {
   model.app.currentPage = screen;
   model.inputs.calendar.selectedEventId = null;
   model.inputs.calendar.chosenColor = 'orange'
+  hiddenInfo = 'hidden';
   updateView();
 }
 
@@ -229,7 +230,12 @@ function nextDate(skipDays){
   updateView();
 }
 
-
+function jumpToDate(day){
+  model.inputs.calendar.currentDay=new Date(day)
+  model.app.currentPage = 'dayView'
+  console.log(model.inputs.calendar.currentDay)
+  updateView();
+}
 
 
 

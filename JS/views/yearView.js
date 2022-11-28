@@ -45,7 +45,7 @@ function drawMonthGrid(index){
             <div class="dayYearContainer">
                 <div style="color:${weekendCheck(DaysThisMonth)}">${DaysThisMonth.getDate()}</div>
                 <div class="yearHoliday">${drawHolidays(DaysThisMonth)}</div>
-                <div>${getCurrentEvents(DaysThisMonth)}</div>
+                <div class="yearEvents">${getCurrentEvents(DaysThisMonth)}</div>
             </div>
         `;
         DaysThisMonth=nextDay(DaysThisMonth);

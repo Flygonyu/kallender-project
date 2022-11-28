@@ -17,7 +17,7 @@ function updateView() {
             ${editEventMoodle()}
             ${menuMoodle()}
             <button class="addEventButton" onclick="showEventMoodle()"
-            ${hiddenbutton=model.app.currentPage=='signInView'||model.app.currentPage=='createAccountView'?
+            ${hiddenbutton=model.app.currentPage=='signInView'||model.app.currentPage=='createAccountView'||model.app.currentUser===0?
             'hidden':''}>+</button>`;
   document.getElementById("app").innerHTML = html;
 }
@@ -74,6 +74,9 @@ function addEventMoodle(){
             <option value="#497174">Blue</option>
             <option value="#EBA83A">Orange</option>
             <option value="#A27B5C">Orange</option>
+            <option value="#90ee90">Orange</option>
+            <option value="#ff625a">Orange</option>
+            <option value="#5ae9ff">Orange</option>
           </datalist>        
           starter:
           <input class="datePicker" value="${model.inputs.calendar.editEvent.startDate}" onchange="model.inputs.calendar.editEvent.startDate=this.value" type="datetime-local">
@@ -115,6 +118,9 @@ function editEventMoodle(){
           <option value="#497174">Blue</option>
           <option value="#EBA83A">Orange</option>
           <option value="#A27B5C">Orange</option>
+          <option value="#90ee90">Orange</option>
+          <option value="#ff625a">Orange</option>
+          <option value="#5ae9ff">Orange</option>
         </datalist>   
           starter:
           <input class="datePicker" value="${model.events[selectedevent].startDate.toISOString().slice(0,16)}" onchange="model.inputs.calendar.editEvent.startDate=this.value" type="datetime-local">
@@ -144,6 +150,7 @@ function moodleErrorMsg(){
 function infoMoodle(){
   let selectedevent=model.inputs.calendar.selectedEventId;
   let events = model.events;
+  let currentUser=model.users.map(user=>user.id).indexOf(model.app.currentUser);
   let html = '';
   if(selectedevent!=null && model.app.currentPage!=='dayView'){
   html = `
@@ -151,12 +158,12 @@ function infoMoodle(){
       <div class="infoMoodle" style="background-color:${events[selectedevent].color};">
       <div class="infoButtons">
         <button class="delete" onclick="deleteTask()"
-        ${hiddenOption=model.app.currentUser===model.users.map(user=>user.username).indexOf(events[selectedevent].createdBy)||
-          model.users[model.app.currentUser].isAdmin?
+        ${hiddenOption=currentUser===model.users.map(user=>user.username).indexOf(events[selectedevent].createdBy)||
+          model.users[currentUser].isAdmin?
         '':'hidden'}>🗑</button>
         <button class="submit" onclick="editMoodle()"
-        ${hiddenOption=model.app.currentUser===model.users.map(user=>user.username).indexOf(events[selectedevent].createdBy)||
-          model.users[model.app.currentUser].isAdmin?
+        ${hiddenOption=currentUser===model.users.map(user=>user.username).indexOf(events[selectedevent].createdBy)||
+          model.users[currentUser].isAdmin?
           '':'hidden'}>✎</button>
         <button class="cancel" onclick="closeInfo()">X</button>
       </div>  
@@ -210,9 +217,11 @@ function menuMoodle(){
     <div class="moodle-main-card ${hiddenMenu}" >
       <div class="moodle-menu-card">
         <div class="menu-button" onclick="showMenuMoodle()"><i class="menu-icon">☰</i></div>
-        <div class="moodle-menu-logIn-button" onclick="showLogInView()">Logg Inn</div>
-        <div class="moodle-menu-createAcc-button" onclick="showCreateAccView()">Lag Ny Bruker</div>
-        <div class="moodle-menu-callender-button" onclick="showDayView()">Kalender</div>
+        ${model.app.currentUser==0 ? `<div class="moodle-menu-logIn-button" onclick="changeView('signInView')">Logg Inn</div>
+        <div class="moodle-menu-createAcc-button" onclick="changeView('createAccountView')">Lag Ny Bruker</div>` :
+        '<div class="moodle-menu-logIn-button" onclick="signOutUser()">Logg Ut</div>'}
+  
+        <div class="moodle-menu-callender-button" onclick="changeView('monthView')">Kalender</div>
       </div>
     </div>
   `;

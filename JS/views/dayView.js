@@ -1,5 +1,6 @@
 function dayView() {
   let selectedevent = model.inputs.calendar.selectedEventId;
+  let currentUser=model.users.map(user=>user.id).indexOf(model.app.currentUser);
   let currentDay = model.inputs.calendar.currentDay;
   let html = "";
   html += `
@@ -44,8 +45,12 @@ function dayView() {
     </div>
       <div class="detailsDayOverView" style="background-color:${model.inputs.calendar.chosenColor}">
       ${selectedevent != null ? 
-        `<button class="delete" onclick="deleteTask()">🗑</button>
-        <button class="submit" onclick="editMoodle()">✎</button>
+        `<button class="delete ${hiddenOption=currentUser===model.users.map(user=>user.username).indexOf(model.events[selectedevent].createdBy)||
+          model.users[currentUser].isAdmin||currentUser===null?
+          '':'hidden'}" onclick="deleteTask()">🗑</button>
+        <button class="submit ${hiddenOption=currentUser===model.users.map(user=>user.username).indexOf(model.events[selectedevent].createdBy)||
+          model.users[currentUser].isAdmin||currentUser===null?
+          '':'hidden'}" onclick="editMoodle()">✎</button>
         ${model.events[selectedevent].title}<br>
         ${moodleSetupLongEvent()}
         ${model.events[selectedevent].description}<br>
@@ -83,6 +88,33 @@ function dayView() {
 //   }
 //   return html;
 // }
+
+// function showEventsThatDay(hoursOfTheDay) {
+//   let html = "";
+//   let events = sortArrayAfterStartDate();
+//   const currentDay = model.inputs.calendar.currentDay;
+//   for (let i = 0; i < events.length; i++) {
+//     const event = events[i];
+//     if (areDatePartsEqual(event.startDate, event.endDate)) {
+//       if (areDatePartsEqual(event.startDate, currentDay)) {
+//         if (
+//           event.startDate.toLocaleTimeString("no-NO") <=
+//             hoursOfTheDay.toLocaleTimeString("no-NO") &&
+//           event.endDate.toLocaleTimeString("no-NO") >=
+//             hoursOfTheDay.toLocaleTimeString("no-NO")
+//         ) {
+//           html += `
+//             <div class="singleEvent" style="background-color: ${event.color};"
+//             onclick="getEventsInfo(${event.id})">
+//             ${event.title}
+//             </div>`;
+//         }
+//       }
+//     }
+//   }
+//   return html;
+// }
+
 function showEventsThatDay(hoursOfTheDay) {
   let html = "";
   let events = sortArrayAfterStartDate();
@@ -92,11 +124,11 @@ function showEventsThatDay(hoursOfTheDay) {
     if (areDatePartsEqual(event.startDate, event.endDate)) {
       if (areDatePartsEqual(event.startDate, currentDay)) {
         if (
-          event.startDate.toLocaleTimeString("no-NO") <=
-            hoursOfTheDay.toLocaleTimeString("no-NO") &&
-          event.endDate.toLocaleTimeString("no-NO") >=
-            hoursOfTheDay.toLocaleTimeString("no-NO")
-        ) {
+          (event.startDate.toLocaleTimeString("no-NO").slice(0,3) <=
+            hoursOfTheDay.toLocaleTimeString("no-NO").slice(0,3)&&
+          event.endDate.toLocaleTimeString("no-NO").slice(0,3) >=
+            hoursOfTheDay.toLocaleTimeString("no-NO").slice(0,3)
+        )) {
           html += `
             <div class="singleEvent" style="background-color: ${event.color};"
             onclick="getEventsInfo(${event.id})">

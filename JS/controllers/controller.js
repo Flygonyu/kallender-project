@@ -1,6 +1,6 @@
 function addEvent() {
   let addEvent = model.inputs.calendar.editEvent;
-  
+  let currentUser=model.users.map(user=>user.id).indexOf(model.app.currentUser);
   if(addEvent.endDate<addEvent.startDate){
   errorMessage('Startdato må være tidligere enn sluttdato');
   return  
@@ -11,27 +11,28 @@ function addEvent() {
     addEvent.endDate !== ""&&
     addEvent.color !== ""
   ) {
-      disabled = '';
+      
       let dateY=new Date(addEvent.startDate);
       let dateX = new Date(addEvent.endDate);
       let xEndDate = dateX.setHours(dateX.getHours() + 1);
       let yStartDate = dateY.setHours(dateY.getHours() + 1);
-      
+      let categorie=addEvent.category==="Velg en kategori"?'':addEvent.category
+
       const event = {
         id:model.events.length+1,
         startDate: new Date(yStartDate),
         endDate: new Date(xEndDate),
         title: addEvent.title,
         description: addEvent.description,
-        createdBy: model.users[model.app.currentUser].username,
-        category: addEvent.category,
+        createdBy: model.users[currentUser].username,
+        category: categorie,
         color: addEvent.color,
       };
       model.events.push(event);
       resetAddEventMoodle();
   }
   else{
-    errorMessage('Du må minimum fylle ut tittel, farge, startdato og sluttdato')
+    errorMessage('Du må minimum fylle ut tittel, kategori, startdato og sluttdato')
   }
   
 }
@@ -41,7 +42,7 @@ function addEvent() {
 function resetAddEventMoodle() {
   let editEvent = model.inputs.calendar.editEvent;
   hiddenAdd = "hidden";
-  disabled='';
+  disabled='disabled';
   editEvent.title = "";
   editEvent.description = "";
   editEvent.color = "";
@@ -73,15 +74,17 @@ function editEvent(){
   ) {
       let dateY=new Date(editEvent.startDate);
       let dateX = new Date(editEvent.endDate);
+      let xEndDate = dateX.setHours(dateX.getHours() + 1);
+      let yStartDate = dateY.setHours(dateY.getHours() + 1);
       
       model.events[selectedevent].title = editEvent.title;
-      model.events[selectedevent].startDate = dateY;
-      model.events[selectedevent].endDate = dateX;
+      model.events[selectedevent].startDate = new Date(yStartDate);
+      model.events[selectedevent].endDate = new Date(xEndDate);
       model.events[selectedevent].description = editEvent.description;
       model.events[selectedevent].category = editEvent.category;
       model.events[selectedevent].color = editEvent.color;
       hiddenEdit = 'hidden'
-  } else errorMessage('Du må minimum fylle ut tittel, farge, startdato og sluttdato');
+  } else errorMessage('Du må minimum fylle ut tittel, kategori, startdato og sluttdato');
   updateView();
 }
 
@@ -89,11 +92,11 @@ function editMoodle(){
   hiddenEdit='';
   let editEvent = model.inputs.calendar.editEvent;
   let selectedevent=model.inputs.calendar.selectedEventId;
-  if(editEvent.category!=='annet'&&editEvent.category!==''){
-    disabled='disabled';
+  editEvent.category=model.events[selectedevent].category;
+  if(editEvent.category=='annet'||editEvent.category==''){
+    disabled='';
   }
   editEvent.title=model.events[selectedevent].title;
-  editEvent.category=model.events[selectedevent].category;
   editEvent.color=model.events[selectedevent].color;
   editEvent.description=model.events[selectedevent].description;
   editEvent.startDate=model.events[selectedevent].startDate;
@@ -109,15 +112,17 @@ function closeEdit(){
 
 function chosenCategory(input){
   model.inputs.calendar.editEvent.category=input;
-    if(input===''||input==='annet'){
+  console.log(input)
+    if(input==='annet'){
+      model.inputs.calendar.editEvent.color='#975C8D';
       disabled='';
     }
     else if(input==='møte'){
-      model.inputs.calendar.editEvent.color='#0D4C92';
+      model.inputs.calendar.editEvent.color='#1371d8';
       disabled='disabled';
     }
     else if(input==='ferie'){
-      model.inputs.calendar.editEvent.color='#59C1BD';
+      model.inputs.calendar.editEvent.color='#6fc86c';
       disabled='disabled';
     }
   updateView()
@@ -140,16 +145,8 @@ function errorMessage(errmsg){
     },5000)
 }
 
-function showLogInView(){
-  model.app.currentPage='signInView';
+function signOutUser(){
+  model.app.currentUser = 0;
   updateView();
 }
 
-function showCreateAccView(){
-  model.app.currentPage='createAccountView';
-  updateView();
-}
-function showDayView(){
-  model.app.currentPage='dayView';
-  updateView();
-}

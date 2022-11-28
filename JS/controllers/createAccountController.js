@@ -11,9 +11,11 @@ function createUserAccount(){
                 passwrd: createAccount.passwrd,
                 isAdmin: false,
             }
-            model.users.push(newUser);
+            model.users.push(newUser)
             resetCreateAccInputs()
             console.log('Bruker opprettet')
+            changeView('signInView');
+            updateView();
         }
         else{
             console.log('Passordene var ikke like')

@@ -1,7 +1,7 @@
 const model = {
   //app
   app: {
-    currentUser: 2, //admin, Vanja
+    currentUser: 0, //admin, Vanja
     currentPage: "monthView",
      //signIn, createAccount, dayView,
     //weekView, monthView, yearView, 
@@ -44,6 +44,10 @@ const model = {
 
   //data
   users: [
+    {
+      id: 0,
+      isAdmin: false,
+    },
     {
       id: 1,
       email: "admin@email.com",
@@ -95,73 +99,56 @@ const model = {
   events: [
     {
       id:1,
-      startDate: new Date("2022-11-22 11:00:00"),
-      endDate: new Date("2022-11-22 12:00:00"),
+      startDate: new Date("2022-11-28 11:00:00"),
+      endDate: new Date("2022-11-28 12:00:00"),
       title: "Møte",
       description: "Møte med Elin",
       createdBy: "Vanja", //if createdBy = currentUser or admin, allow edit
       category: "møte", //if category, lock color picker
-      color: "#0D4C92",
+      color: "#1371d8",
     },
     {
       id:2,
-      startDate: new Date("2022-11-22 11:00:00"),
-      endDate: new Date("2022-11-22 12:00:00"),
+      startDate: new Date("2022-11-27 11:00:00"),
+      endDate: new Date("2022-11-28 12:00:00"),
       title: "Hyttetur",
       description: "Borte fra kontoret, ta kontakt via tlf.",
       createdBy: "Vanja",
-      category: null, 
-      color: "#FF8FB1",
+      category: 'ferie', 
+      color: "#6fc86c",
     },
     {
       id:3,
-      startDate: new Date("2022-11-10 01:00:00"),
-      endDate: new Date("2022-11-15 01:00:00"),
+      startDate: new Date("2022-11-20 01:00:00"),
+      endDate: new Date("2022-11-25 01:00:00"),
       title: "Harrytur",
       description: "Handler bacon.",
       createdBy: "Fredrik",
-      category: null, 
-      color: "#DC3535",
+      category: 'annet', 
+      color: "#ff625a",
     },
     {
       id:4,
-      startDate: new Date("2022-11-15 01:00:00"),
-      endDate: new Date("2022-11-15 01:00:00"),
+      startDate: new Date("2022-11-28 12:00:00"),
+      endDate: new Date("2022-11-28 12:00:00"),
       title: "Movie time",
       description: "Surf's up best movie.",
       createdBy: "Fredrik",
-      category: null, 
-      color: "#E97777",
+      category: 'annet', 
+      color: "#EF9A53",
     },
     {
       id:5,
-      startDate: new Date("2022-10-15 02:00:00"),
-      endDate: new Date("2022-11-15 01:00:00"),
+      startDate: new Date("2022-10-25 02:00:00"),
+      endDate: new Date("2022-11-22 01:00:00"),
       title: "Epic coding",
       description: "we're doing great",
       createdBy: "Vanja",
-      category: null, 
-      color: "lightgreen",
+      category: 'annet', 
+      color: "#90ee90",
     },
   ],
 
-  categories: [
-    {
-        id: 1,
-        name: 'møte',
-        color: 'blue'
-    },
-    {
-        id: 2,
-        name: 'ferie',
-        color: 'green'
-    },
-    {
-        id: 3,
-        name: '',
-        color: ''
-    },
-  ],
   holidays: [
     
   ],

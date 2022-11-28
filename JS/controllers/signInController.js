@@ -5,6 +5,8 @@ function signInUser(){
     if(signedInUser!==-1 && users[signedInUser].passwrd===signIn.passwrd){
         model.app.currentUser=users[signedInUser].id;
         resetSignInInputs();
+        changeView('monthView')
+        updateView();
     }
     else{
         console.log('Email eller passord er feil')

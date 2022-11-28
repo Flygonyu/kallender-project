@@ -39,11 +39,11 @@ function drawMonthView() {
   for (let i = -divsToAdd; i < getDaysCurrentMonth(currentDay); i++) {
     html += `
             <div class="dayContainer">
-                <div style="color:${weekendCheck(mondayStart)}">${mondayStart.getDate()}
+                <div style="color:${weekendCheck(mondayStart)}" onclick="jumpToDate('${mondayStart.toISOString()}')">${mondayStart.getDate()}
                   <div class="monthHoliday">${drawHolidays(mondayStart)}
                   </div>
                 </div>
-                <div>${getCurrentEvents(mondayStart)}</div>
+                <div class="monthEvents">${getCurrentEvents(mondayStart)}</div>
             </div>
         `;
         mondayStart=nextDay(mondayStart);
