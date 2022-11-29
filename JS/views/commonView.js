@@ -10,7 +10,6 @@ function drawHolidays(day){
     return html;
 }
 
-
   function getCurrentEvents(day) {
     let html = "";
     const sortedList=sortArrayAfterStartDate();

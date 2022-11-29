@@ -45,16 +45,17 @@ function dayView() {
     </div>
       <div class="detailsDayOverView" style="background-color:${selectedevent!=null? model.events[selectedevent].color:model.inputs.calendar.chosenColor}">
       ${selectedevent != null ? 
-        `<button class="delete ${hiddenOption=currentUser===model.users.map(user=>user.username).indexOf(model.events[selectedevent].createdBy)||
+        `<button class="delete ${hiddenOption=currentUser===model.users.map(user=>user.id).indexOf(model.events[selectedevent].createdBy)||
           model.users[currentUser].isAdmin||currentUser===null?
           '':'hidden'}" onclick="deleteTask()">🗑</button>
-        <button class="submit ${hiddenOption=currentUser===model.users.map(user=>user.username).indexOf(model.events[selectedevent].createdBy)||
+        <button class="submit ${hiddenOption=currentUser===model.users.map(user=>user.id).indexOf(model.events[selectedevent].createdBy)||
           model.users[currentUser].isAdmin||currentUser===null?
           '':'hidden'}" onclick="editMoodle()">✎</button>
         ${model.events[selectedevent].title}<br>
-        ${moodleSetupLongEvent()}
+        ${model.events[selectedevent].category === null ? '' : `Kategori: ${model.events[selectedevent].category}`}
+        ${moodleSetupLongEvent()}<br>
         <text>${model.events[selectedevent].description}</text><br>
-        Lagt til av ${model.events[selectedevent].createdBy}
+        Lagt til av ${model.users[model.events[selectedevent].createdBy].username}
         `
           : ""}
         </div>
@@ -62,58 +63,6 @@ function dayView() {
     `;
   return html;
 }
-
-// function showEventsThatDay(hoursOfTheDay) {
-//   let html = "";
-//   let events = model.events;
-//   const currentDay = model.inputs.calendar.currentDay;
-//   for (let i = 0; i < events.length; i++) {
-//     const event = events[i];
-//     if (areDatePartsEqual(event.startDate, event.endDate)) {
-//       if (areDatePartsEqual(event.startDate, currentDay)) {
-//         if (
-//           event.startDate.toLocaleTimeString("no-NO") <=
-//             hoursOfTheDay.toLocaleTimeString("no-NO") &&
-//           event.endDate.toLocaleTimeString("no-NO") >=
-//             hoursOfTheDay.toLocaleTimeString("no-NO")
-//         ) {
-//           html += `
-//             <div class="singleEvent" style="background-color: ${event.color};"
-//             onclick="getEventsInfo(${event.id})">
-//             ${event.title}
-//             </div>`;
-//         }
-//       }
-//     }
-//   }
-//   return html;
-// }
-
-// function showEventsThatDay(hoursOfTheDay) {
-//   let html = "";
-//   let events = sortArrayAfterStartDate();
-//   const currentDay = model.inputs.calendar.currentDay;
-//   for (let i = 0; i < events.length; i++) {
-//     const event = events[i];
-//     if (areDatePartsEqual(event.startDate, event.endDate)) {
-//       if (areDatePartsEqual(event.startDate, currentDay)) {
-//         if (
-//           event.startDate.toLocaleTimeString("no-NO") <=
-//             hoursOfTheDay.toLocaleTimeString("no-NO") &&
-//           event.endDate.toLocaleTimeString("no-NO") >=
-//             hoursOfTheDay.toLocaleTimeString("no-NO")
-//         ) {
-//           html += `
-//             <div class="singleEvent" style="background-color: ${event.color};"
-//             onclick="getEventsInfo(${event.id})">
-//             ${event.title}
-//             </div>`;
-//         }
-//       }
-//     }
-//   }
-//   return html;
-// }
 
 function showEventsThatDay(hoursOfTheDay) {
   let html = "";

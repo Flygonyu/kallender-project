@@ -24,7 +24,7 @@ function addEvent() {
         endDate: new Date(xEndDate),
         title: addEvent.title,
         description: addEvent.description,
-        createdBy: model.users[currentUser].username,
+        createdBy: model.users[currentUser].id,
         category: categorie,
         color: addEvent.color,
       };
@@ -106,7 +106,6 @@ function editMoodle(){
 
 function closeEdit(){
   hiddenEdit='hidden';
-  // model.inputs.calendar.selectedEventId=null;
   updateView();
 }
 

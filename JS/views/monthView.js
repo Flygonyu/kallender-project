@@ -59,4 +59,4 @@ function drawWeekGrid() {
   }
   return html;
 }
-// model.events.sort((a,b)=>a.startDate-b.startDate) sortering av array
+

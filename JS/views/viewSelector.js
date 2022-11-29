@@ -158,22 +158,22 @@ function infoMoodle(){
       <div class="infoMoodle" style="background-color:${events[selectedevent].color};">
       <div class="infoButtons">
         <button class="delete" onclick="deleteTask()"
-        ${hiddenOption=currentUser===model.users.map(user=>user.username).indexOf(events[selectedevent].createdBy)||
+        ${hiddenOption=currentUser===model.users.map(user=>user.id).indexOf(events[selectedevent].createdBy)||
           model.users[currentUser].isAdmin?
         '':'hidden'}>🗑</button>
         <button class="submit" onclick="editMoodle()"
-        ${hiddenOption=currentUser===model.users.map(user=>user.username).indexOf(events[selectedevent].createdBy)||
+        ${hiddenOption=currentUser===model.users.map(user=>user.id).indexOf(events[selectedevent].createdBy)||
           model.users[currentUser].isAdmin?
           '':'hidden'}>✎</button>
         <button class="cancel" onclick="closeInfo()">X</button>
       </div>  
       <div class="moodle-top">
-        <text>${events[selectedevent].title}</text> 
-        <text>${events[selectedevent].category === null ? '' : events[selectedevent].category}</text>
+        <text>${events[selectedevent].title}</text> <br>
+        <text>${events[selectedevent].category === null ? '' : `Kategori: ${events[selectedevent].category}`}</text>
         </div>
         ${moodleSetupLongEvent()}
         <div class="moodle-top infoDescription">${events[selectedevent].description}</div>
-        <text>Lagt til av ${events[selectedevent].createdBy}</text>
+        <text>Lagt til av ${model.users[events[selectedevent].createdBy].username}</text>
       </div>
     </div>
   `;

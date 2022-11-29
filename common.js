@@ -184,11 +184,6 @@ function timeOnly(date){
   return date.toJSON().split('T')[1].slice(0,5);
 }
 
-// function getEventsInfo(index) {
-//   model.inputs.calendar.selectedEventId = index;
-//   model.inputs.calendar.chosenColor = model.events[model.inputs.calendar.selectedEventId].color;
-//   updateView();
-// }
 function getEventsInfo(id) {
   model.inputs.calendar.selectedEventId = model.events.map(event=>event.id).indexOf(id);
   model.inputs.calendar.chosenColor = model.events[model.inputs.calendar.selectedEventId].color;
@@ -237,44 +232,3 @@ function jumpToDate(day){
   console.log(model.inputs.calendar.currentDay)
   updateView();
 }
-
-
-
-
-
-
-
-
-// let currentDay = model.inputs.calendar.currentDay;
-//   let firstdayofNovember = specificDate(1,11);
-//   let diffDaysNov = 7-firstdayofNovember.getDay()
-//   let xmas = specificDate(24,12);
-//   let diffDaysDes = 0-xmas.getDay();
-//   let sundayBeforeXmas = dateFromDateAndDays(xmas,diffDaysDes);
-//   let firstEasterDay = getFirstEaster(currentDay.getFullYear());
-//   model.holidays[0].date = specificDate(1,1);
-//   model.holidays[1].date = dateFromDateAndDays(firstEasterDay,-49);
-//   model.holidays[2].date = specificDate(8,3);
-//   model.holidays[3].date = dateFromDateAndDays(firstEasterDay,-7);
-//   model.holidays[4].date = dateFromDateAndDays(firstEasterDay,-3);
-//   model.holidays[5].date = dateFromDateAndDays(firstEasterDay,-2);
-//   model.holidays[6].date = dateFromDateAndDays(firstEasterDay,-1);
-//   model.holidays[7].date = firstEasterDay;
-//   model.holidays[8].date = dateFromDateAndDays(firstEasterDay,1);
-//   model.holidays[9].date = specificDate(1,5);
-//   model.holidays[10].date = specificDate(17,5);
-//   model.holidays[11].date = dateFromDateAndDays(firstEasterDay,39);
-//   model.holidays[12].date = dateFromDateAndDays(firstEasterDay,48);
-//   model.holidays[13].date = dateFromDateAndDays(firstEasterDay,49);
-//   model.holidays[14].date = dateFromDateAndDays(firstEasterDay,50);
-//   model.holidays[15].date = specificDate(23,6);
-//   model.holidays[16].date = dateFromDateAndDays(firstdayofNovember,diffDaysNov);
-//   //model.holidays[16].date = new Date(firstdayofNovember.setDate(firstdayofNovember.getDate()+diffDaysNov));
-//   model.holidays[17].date = dateFromDateAndDays(sundayBeforeXmas,-21);
-//   model.holidays[18].date = dateFromDateAndDays(sundayBeforeXmas,-14);
-//   model.holidays[19].date = dateFromDateAndDays(sundayBeforeXmas,-7);
-//   model.holidays[20].date = sundayBeforeXmas;
-//   model.holidays[21].date = xmas;
-//   model.holidays[22].date = specificDate(25,12);
-//   model.holidays[23].date = specificDate(26,12);
-//   model.holidays[24].date = specificDate(31,12);
