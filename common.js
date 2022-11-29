@@ -74,7 +74,7 @@ function getFirstEaster( y ) {
   // Instantiate the date object.
   date = new Date;
   // Set the timestamp to midnight.
-  date.setHours( 2, 0, 0, 0 );
+  date.setHours( 1, 0, 0, 0 );
   // Set the year.
   date.setFullYear( y );
   // Find the golden number.
@@ -107,6 +107,7 @@ function getHolidays(){
 function createHolidaysEasterAndBefore(){
   let currentDay = model.inputs.calendar.currentDay;
   let firstEasterDay = getFirstEaster(currentDay.getFullYear());
+  console.log(firstEasterDay)
   return [
       holidayObj(specificDate(1,1), "Nyttårsdag"),
       holidayObj(dateFromDateAndDays(firstEasterDay,-49), "Fastelavnssøndag"),
@@ -124,6 +125,7 @@ function createHolidaysEasterAndBefore(){
       holidayObj(dateFromDateAndDays(firstEasterDay,49),"1. pinsedag"),
       holidayObj(dateFromDateAndDays(firstEasterDay,50),"2. pinsedag"),
     ];
+    
 }
 
 function createHolidaysAfterEaster(){
