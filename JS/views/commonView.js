@@ -10,20 +10,6 @@ function drawHolidays(day){
     return html;
 }
 
-// function getCurrentEvents(day) {
-//     let html = "";
-//     model.events.forEach((event, index) => {
-//       if (
-//         dateOnly(event.startDate) <= dateOnly(day) &&
-//         dateOnly(event.endDate) >= dateOnly(day)
-//       ) {
-//         html += `<div onclick="getEventsInfo(${index}) ${(hiddenInfo = "")}" 
-//                   style="background-color: ${event.color};">${event.title}
-//                   </div>`;
-//       }
-//     });
-//     return html;
-//   }
 
   function getCurrentEvents(day) {
     let html = "";

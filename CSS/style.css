@@ -262,6 +262,7 @@ body{
     border: 2px gray solid;
     height: 590px;
     padding:5px;
+    overflow-wrap: break-word;
 }
 
 .moodle-main-card{
@@ -300,6 +301,7 @@ body{
     border: 5px rgb(53, 48, 48) solid;
     box-shadow: 1px 6px 21px -3px #000000;
     text-align: center;
+    overflow-wrap: break-word;
 }
 
 .moodle-top{

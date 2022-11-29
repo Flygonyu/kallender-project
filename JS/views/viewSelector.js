@@ -83,7 +83,7 @@ function addEventMoodle(){
           slutter:
           <input class="datePicker" value="${model.inputs.calendar.editEvent.endDate}" onchange="model.inputs.calendar.editEvent.endDate=this.value" type="datetime-local">
         </div>
-        <input class="moodle-top description" value="${model.inputs.calendar.editEvent.description}" oninput="model.inputs.calendar.editEvent.description=this.value" type="text" placeholder="beskrivelse"><br>
+        <textarea rows="5" cols="33" class="moodle-top description" value="${model.inputs.calendar.editEvent.description}" oninput="model.inputs.calendar.editEvent.description=this.value" type="text" placeholder="beskrivelse"></textarea><br>
         <button class="submit" onclick="addEvent()">Legg Til Event</button>
         <button class="cancel" onclick="resetAddEventMoodle()">Avslutt</button>
         ${errorMsg===''?'':moodleErrorMsg()}
@@ -127,7 +127,7 @@ function editEventMoodle(){
           slutter:
           <input class="datePicker" value="${model.events[selectedevent].endDate.toISOString().slice(0,16)}" onchange="model.inputs.calendar.editEvent.endDate=this.value" type="datetime-local">
         </div>
-        <input class="moodle-top description" value="${editEvent.description}" oninput="model.inputs.calendar.editEvent.description=this.value" type="text" placeholder="beskrivelse"><br>
+        <textarea rows="5" cols="33" class="moodle-top description" value="${editEvent.description}" oninput="model.inputs.calendar.editEvent.description=this.value" type="text" placeholder="beskrivelse">${editEvent.description}</textarea><br>
         <button class="submit" onclick="editEvent()">Endre</button>
         <button class="cancel" onclick="closeEdit()">Avslutt</button>
         ${errorMsg===''?'':moodleErrorMsg()}

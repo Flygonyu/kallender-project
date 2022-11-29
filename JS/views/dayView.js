@@ -43,7 +43,7 @@ function dayView() {
       
       <div class="multipleDayEvents">${eventsOverMultipleDays()}</div>
     </div>
-      <div class="detailsDayOverView" style="background-color:${model.inputs.calendar.chosenColor}">
+      <div class="detailsDayOverView" style="background-color:${selectedevent!=null? model.events[selectedevent].color:model.inputs.calendar.chosenColor}">
       ${selectedevent != null ? 
         `<button class="delete ${hiddenOption=currentUser===model.users.map(user=>user.username).indexOf(model.events[selectedevent].createdBy)||
           model.users[currentUser].isAdmin||currentUser===null?
@@ -53,7 +53,7 @@ function dayView() {
           '':'hidden'}" onclick="editMoodle()">✎</button>
         ${model.events[selectedevent].title}<br>
         ${moodleSetupLongEvent()}
-        ${model.events[selectedevent].description}<br>
+        <text>${model.events[selectedevent].description}</text><br>
         Lagt til av ${model.events[selectedevent].createdBy}
         `
           : ""}

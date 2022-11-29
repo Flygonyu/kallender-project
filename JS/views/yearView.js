@@ -43,7 +43,7 @@ function drawMonthGrid(index){
     for (let i = 0;i < getDaysCurrentMonth(firstDayOfTheMonth);i++) {
         html += `
             <div class="dayYearContainer">
-                <div style="color:${weekendCheck(DaysThisMonth)}">${DaysThisMonth.getDate()}</div>
+                <div style="color:${weekendCheck(DaysThisMonth)}" onclick="jumpToDate('${DaysThisMonth.toISOString()}')">${DaysThisMonth.getDate()}</div>
                 <div class="yearHoliday">${drawHolidays(DaysThisMonth)}</div>
                 <div class="yearEvents">${getCurrentEvents(DaysThisMonth)}</div>
             </div>

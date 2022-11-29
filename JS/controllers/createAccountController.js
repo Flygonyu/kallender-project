@@ -5,7 +5,7 @@ function createUserAccount(){
     if(existingUser===-1){
         if(createAccount.passwrd===createAccount.verifyPasswrd){
             const newUser={
-                id: users.length+1,
+                id: users.length,
                 email: createAccount.email.toLocaleLowerCase(),
                 username: createAccount.username,
                 passwrd: createAccount.passwrd,
@@ -18,11 +18,11 @@ function createUserAccount(){
             updateView();
         }
         else{
-            console.log('Passordene var ikke like')
+            errorMessage('Passordene var ikke like')
         }
     }
     else{
-        console.log('Brukeren finnes fra før')
+        errorMessage('Brukeren finnes fra før')
     }
 }
 

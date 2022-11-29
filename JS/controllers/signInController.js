@@ -9,7 +9,7 @@ function signInUser(){
         updateView();
     }
     else{
-        console.log('Email eller passord er feil')
+        errorMessage('Email eller passord er feil')
     }
 }
 

@@ -34,7 +34,7 @@ function weekGridView() {
     let index = i == 7 ? 0 : i;
     html += `
                 <div>
-                    <div class="weekHeader" style="background-color:${weekendIndexCheck(index)}">
+                    <div class="weekHeader" style="background-color:${weekendIndexCheck(index)}" onclick="jumpToDate('${firstday.toISOString()}')">
                     ${model.dayNames[index]} ${firstday.getDate()}</div>
                     <div class="weekDayContent">
                     <div class="weekHoliday">${drawHolidays(firstday)}</div>

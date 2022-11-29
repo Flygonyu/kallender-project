@@ -32,7 +32,8 @@ function getWeek(date) {
 function changeView(screen) {
   model.app.currentPage = screen;
   model.inputs.calendar.selectedEventId = null;
-  model.inputs.calendar.chosenColor = 'orange'
+  model.inputs.calendar.chosenColor = 'orange';
+  hiddenMenu='hidden';
   hiddenInfo = 'hidden';
   updateView();
 }

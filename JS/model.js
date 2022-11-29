@@ -1,10 +1,8 @@
 const model = {
   //app
   app: {
-    currentUser: 0, //admin, Vanja
-    currentPage: "monthView",
-     //signIn, createAccount, dayView,
-    //weekView, monthView, yearView, 
+    currentUser: 0,
+    currentPage: "yearView",
     errmsg:'',
   },
 
@@ -25,12 +23,12 @@ const model = {
 
     calendar: {
       chosenColor: "orange",
-      currentDay: new Date(),       //toISOString
+      currentDay: new Date(),
       currentYear: new Date().getFullYear(),
       splitDay: false,
       selectedEventId:null,
       eventEditMode: false,
-      editEvent: {          //create if selectedEventId=null
+      editEvent: {          
         id: 2,
         title: "",
         category: null,
@@ -99,18 +97,18 @@ const model = {
   events: [
     {
       id:1,
-      startDate: new Date("2022-11-28 11:00:00"),
-      endDate: new Date("2022-11-28 12:00:00"),
+      startDate: new Date("2022-12-01 11:00:00"),
+      endDate: new Date("2022-12-01 12:00:00"),
       title: "Møte",
       description: "Møte med Elin",
-      createdBy: "Vanja", //if createdBy = currentUser or admin, allow edit
-      category: "møte", //if category, lock color picker
+      createdBy: "Vanja", 
+      category: "møte", 
       color: "#1371d8",
     },
     {
       id:2,
       startDate: new Date("2022-11-27 11:00:00"),
-      endDate: new Date("2022-11-28 12:00:00"),
+      endDate: new Date("2022-11-29 12:00:00"),
       title: "Hyttetur",
       description: "Borte fra kontoret, ta kontakt via tlf.",
       createdBy: "Vanja",
@@ -121,31 +119,61 @@ const model = {
       id:3,
       startDate: new Date("2022-11-20 01:00:00"),
       endDate: new Date("2022-11-25 01:00:00"),
-      title: "Harrytur",
-      description: "Handler bacon.",
+      title: "C#",
+      description: "Sette seg inn i C#.",
       createdBy: "Fredrik",
       category: 'annet', 
       color: "#ff625a",
     },
     {
       id:4,
-      startDate: new Date("2022-11-28 12:00:00"),
-      endDate: new Date("2022-11-28 12:00:00"),
-      title: "Movie time",
-      description: "Surf's up best movie.",
+      startDate: new Date("2022-10-13 12:00:00"),
+      endDate: new Date("2022-10-13 13:00:00"),
+      title: "Klatring",
+      description: "Skal få til 6c i dag.",
       createdBy: "Fredrik",
       category: 'annet', 
       color: "#EF9A53",
     },
     {
       id:5,
-      startDate: new Date("2022-10-25 02:00:00"),
-      endDate: new Date("2022-11-22 01:00:00"),
-      title: "Epic coding",
-      description: "we're doing great",
+      startDate: new Date("2022-02-22 02:00:00"),
+      endDate: new Date("2022-02-22 03:00:00"),
+      title: "Vanja's bursdag",
+      description: "",
       createdBy: "Vanja",
       category: 'annet', 
       color: "#90ee90",
+    },
+    {
+      id:6,
+      startDate: new Date("2022-12-10 11:00:00"),
+      endDate: new Date("2023-01-08 12:00:00"),
+      title: "Juleferie",
+      description: "Pakker, ribbe og kos.",
+      createdBy: "Vanja",
+      category: 'ferie', 
+      color: "#6fc86c",
+    },
+    {
+      id:7,
+      startDate: new Date("2022-06-14 14:00:00"),
+      endDate: new Date("2022-06-14 18:00:00"),
+      title: "Strandkos",
+      description: "Nå skal det bades.",
+      createdBy: "Fredrik",
+      category: 'Annet', 
+      color: "#EBA83A",
+    },
+    {
+      id:8,
+      startDate: new Date("2023-01-13 11:00:00"),
+      endDate: new Date("2023-01-13 12:00:00"),
+      title: "Møte",
+      description: "Møte med Terje",
+      createdBy: "Vanja",
+      category: 'møte', 
+      color: "#1371d8",
     },
   ],
 
@@ -153,16 +181,3 @@ const model = {
     
   ],
 };
-
-// Følgende dager er helligdager i Norge:
-
-// vanlige søndager
-// nyttårsdag (1. januar)
-// skjærtorsdag
-// langfredag
-// første og andre påskedag
-// Kristi himmelfartsdag
-// første og andre pinsedag
-// første og andre juledag (25. og 26. desember)
-
-// Høytidsdagene i Norge er 1. juledag, 1. påskedag, 1. pinsedag, 1. mai og 17. mai.
