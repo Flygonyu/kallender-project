@@ -14,8 +14,9 @@ function addEvent() {
       
       let dateY=new Date(addEvent.startDate);
       let dateX = new Date(addEvent.endDate);
-      let xEndDate = dateX.setHours(dateX.getHours() + 1);
-      let yStartDate = dateY.setHours(dateY.getHours() + 1);
+      
+      let xEndDate = summerTime(dateX);
+      let yStartDate = summerTime(dateY);
       let categorie=addEvent.category==="Velg en kategori"?'':addEvent.category
 
       const event = {
@@ -74,8 +75,15 @@ function editEvent(){
   ) {
       let dateY=new Date(editEvent.startDate);
       let dateX = new Date(editEvent.endDate);
-      let xEndDate = dateX.setHours(dateX.getHours() + 1);
-      let yStartDate = dateY.setHours(dateY.getHours() + 1);
+      let yStartDate, xEndDate;
+      if(editEvent.startDate !== model.events[selectedevent].startDate){
+        yStartDate = summerTime(dateY);
+      }
+      else yStartDate=dateY;
+      if(editEvent.endDate !== model.events[selectedevent].endDate){
+        xEndDate = summerTime(dateX);
+      }
+      else xEndDate=dateX;
       
       model.events[selectedevent].title = editEvent.title;
       model.events[selectedevent].startDate = new Date(yStartDate);
@@ -111,7 +119,7 @@ function closeEdit(){
 
 function chosenCategory(input){
   model.inputs.calendar.editEvent.category=input;
-  console.log(input)
+
     if(input==='annet'){
       model.inputs.calendar.editEvent.color='#975C8D';
       disabled='';

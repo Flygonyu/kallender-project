@@ -2,13 +2,38 @@ function getDaysCurrentMonth(date) {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 }
 function getFirstDayInCurrentMonth(date) {
-    return new Date(date.getFullYear(), date.getMonth(), 1,1,0,0);
+  let firstDay;
+  if(date>=getLastSundayInMarch()||date<=getLastSundayInOctober()){
+    firstDay=new Date(date.getFullYear(), date.getMonth(), 1,2,0,0)
+  }
+  else{
+    firstDay=new Date(date.getFullYear(), date.getMonth(), 1,1,0,0)
+  }
+    return firstDay;
   }
 function diffToFirstDayInMonth(date,spearDays){
     return new Date(date.setDate(date.getDate()-spearDays));
 }
 function getFirstDayOfEachMonth(year, month){
-  return new Date(year,month,1,1,0,0);
+  let firstDay=new Date(year,month,1,1,0,0);
+  if(firstDay>=getLastSundayInMarch()||firstDay<=getLastSundayInOctober()){
+    firstDay=new Date(year,month,1,2,0,0)
+  }
+  else{
+    firstDay=new Date(year,month,1,1,0,0)
+  }
+    return firstDay;
+}
+
+function checksummertime(date){
+  let summerdate=date;
+  if(summerdate>=getLastSundayInMarch()&&summerdate<=getLastSundayInOctober()){
+    summerdate.setHours(2);
+  }
+  else{
+    summerdate.setHours(1);
+  }
+  return summerdate;
 }
 
 function getWeek(date) {
@@ -42,7 +67,14 @@ function getMonday() {
   const currentDay = model.inputs.calendar.currentDay;
   let diffMonday = 1 - currentDay.getDay();
   let dayNoMonday = currentDay.getDate() + diffMonday;
-  return new Date(currentDay.setDate(dayNoMonday));
+  let monday=new Date(currentDay.setDate(dayNoMonday))
+  if(monday>=getLastSundayInMarch()||monday<=getLastSundayInOctober()){
+    monday.setHours(2)
+  }
+  else{
+    monday.setHours(1)
+  }
+    return monday;
 }
 
 function nextDay(currentDay) {
@@ -74,7 +106,7 @@ function getFirstEaster( y ) {
   // Instantiate the date object.
   date = new Date;
   // Set the timestamp to midnight.
-  date.setHours( 1, 0, 0, 0 );
+  date.setHours( 2, 0, 0, 0 );
   // Set the year.
   date.setFullYear( y );
   // Find the golden number.
@@ -107,7 +139,6 @@ function getHolidays(){
 function createHolidaysEasterAndBefore(){
   let currentDay = model.inputs.calendar.currentDay;
   let firstEasterDay = getFirstEaster(currentDay.getFullYear());
-  console.log(firstEasterDay)
   return [
       holidayObj(specificDate(1,1), "Nyttårsdag"),
       holidayObj(dateFromDateAndDays(firstEasterDay,-49), "Fastelavnssøndag"),
@@ -135,7 +166,7 @@ function createHolidaysAfterEaster(){
   let firstdayofNovember = specificDate(1,11);
   let diffDaysNov = 7-firstdayofNovember.getDay()
   return [
-    holidayObj(specificDate(23,6), "Sankthans"),
+    holidayObj(specificDate(23,6), "Sankthansaften"),
     holidayObj(dateFromDateAndDays(firstdayofNovember,diffDaysNov), "Allehelgensdag"),
     holidayObj(dateFromDateAndDays(sundayBeforeXmas,-21), "1. søndag i advent"),
     holidayObj(dateFromDateAndDays(sundayBeforeXmas,-14), "2. søndag i advent"),
@@ -150,15 +181,25 @@ function createHolidaysAfterEaster(){
 
 function holidayObj(date, name){
   return {date, name};
-  // return {date: date, name: name};
 }
 
 function dateFromDateAndDays(date,days){
-  return new Date(new Date(date.toISOString()).setDate(date.getDate()+days))
+  let newDate=new Date(new Date(date.toISOString()).setDate(date.getDate()+days));
+  if(newDate>=getLastSundayInMarch()||newDate<=getLastSundayInOctober()){
+    newDate.setHours(2);
+  }
+  else{
+    newDate.setHours(1);
+  }
+  return newDate;
 }
 
 function specificDate(day, month){
-  return new Date(currentYear(), month - 1, day, 1, 0, 0);
+  let newDate=new Date(currentYear(), month - 1, day, 1, 0, 0);
+  if(newDate>=getLastSundayInMarch()||newDate<=getLastSundayInOctober()){
+    newDate=new Date(currentYear(), month - 1, day, 2, 0, 0);
+  }
+  return newDate;
 }
 
 function currentYear(){
@@ -231,6 +272,44 @@ function nextDate(skipDays){
 function jumpToDate(day){
   model.inputs.calendar.currentDay=new Date(day)
   model.app.currentPage = 'dayView'
-  console.log(model.inputs.calendar.currentDay)
   updateView();
+}
+
+function getLastSundayInMarch(){
+  let lastSundayInMarch=new Date(model.inputs.calendar.currentYear,2,31,1,0,0);
+  if(lastSundayInMarch.getDay()>0){
+    lastSundayInMarch.setDate(lastSundayInMarch.getDate()-lastSundayInMarch.getDay())
+  }
+  return lastSundayInMarch;
+}
+
+function getLastSundayInOctober(){
+  let lastSundayInOctober=new Date(model.inputs.calendar.currentYear,9,31,1,0,0);
+  if(lastSundayInOctober.getDay()>0){
+    lastSundayInOctober.setDate(lastSundayInOctober.getDate()-lastSundayInOctober.getDay())
+  }
+  return lastSundayInOctober;
+}
+
+function summerTime(date){
+  let summerdate=date;
+  if(summerdate>=getLastSundayInMarch()&&summerdate<=getLastSundayInOctober()){
+    summerdate.setHours(date.getHours()+2);
+  }
+  else{
+    summerdate.setHours(date.getHours()+1);
+  }
+  return summerdate;
+}
+
+function reverseDate(date){
+  let reversed;
+  reversed=date.toJSON().slice(0,10).split('-').reverse().join('.')
+  return reversed;
+}
+
+function getDayTimeDiffrence(date){
+  let newDate=date;
+  newDate=new Date(newDate.toJSON().slice(0,10));
+  return newDate.getDay();
 }

@@ -64,19 +64,45 @@ function dayView() {
   return html;
 }
 
+// function showEventsThatDay(hoursOfTheDay) {
+//   let html = "";
+//   let events = sortArrayAfterStartDate();
+//   const currentDay = checksummertime(model.inputs.calendar.currentDay);
+//   for (let i = 0; i < events.length; i++) {
+//     const event = events[i];
+//     if (areDatePartsEqual(event.startDate, event.endDate)) {
+//       if (areDatePartsEqual(event.startDate, currentDay)) {
+//         if (
+//           (event.startDate.toLocaleTimeString("no-NO").slice(0,3) <=
+//             hoursOfTheDay.toLocaleTimeString("no-NO").slice(0,3)&&
+//           event.endDate.toLocaleTimeString("no-NO").slice(0,3) >=
+//             hoursOfTheDay.toLocaleTimeString("no-NO").slice(0,3)
+//         )) {
+//           html += `
+//             <div class="singleEvent" style="background-color: ${event.color};"
+//             onclick="getEventsInfo(${event.id})">
+//             ${event.title}
+//             </div>`;
+//         }
+//       }
+//     }
+//   }
+//   return html;
+// }
+
 function showEventsThatDay(hoursOfTheDay) {
   let html = "";
   let events = sortArrayAfterStartDate();
-  const currentDay = model.inputs.calendar.currentDay;
+  const currentDay = checksummertime(model.inputs.calendar.currentDay);
   for (let i = 0; i < events.length; i++) {
     const event = events[i];
     if (areDatePartsEqual(event.startDate, event.endDate)) {
       if (areDatePartsEqual(event.startDate, currentDay)) {
         if (
-          (event.startDate.toLocaleTimeString("no-NO").slice(0,3) <=
-            hoursOfTheDay.toLocaleTimeString("no-NO").slice(0,3)&&
-          event.endDate.toLocaleTimeString("no-NO").slice(0,3) >=
-            hoursOfTheDay.toLocaleTimeString("no-NO").slice(0,3)
+          (event.startDate.toJSON().slice(11,13) <=
+            hoursOfTheDay.toJSON().slice(11,13)&&
+          event.endDate.toJSON().slice(11,13) >=
+            hoursOfTheDay.toJSON().slice(11,13)
         )) {
           html += `
             <div class="singleEvent" style="background-color: ${event.color};"
@@ -92,7 +118,7 @@ function showEventsThatDay(hoursOfTheDay) {
 
 function eventsOverMultipleDays() {
   let html = "";
-  const currentDay = model.inputs.calendar.currentDay;
+  const currentDay = checksummertime(model.inputs.calendar.currentDay);
   let events = model.events;
   for (let i = 0; i < events.length; i++) {
     const event = events[i];
@@ -114,13 +140,14 @@ function eventsOverMultipleDays() {
 }
 
 function drawHours() {
-  let hoursOfTheDay = new Date().setHours(0, 0, 0);
-  hoursOfTheDay = new Date(hoursOfTheDay);
+  let hoursOfTheDay = model.inputs.calendar.currentDay.setHours(0,0,0);
+  hoursOfTheDay=new Date(hoursOfTheDay)
+  hoursOfTheDay = summerTime(hoursOfTheDay);
   let html = "";
-  for (let i = 1; i < 25; i++) {
-    hoursOfTheDay = new Date(hoursOfTheDay.setHours(i));
+  for (let i = 0; i < 24; i++) {
     html += `<div class="hour">${timeOnly(hoursOfTheDay)}</div>
-      <div class="eventsHours">${showEventsThatDay(hoursOfTheDay)}</div>`;
+    <div class="eventsHours">${showEventsThatDay(hoursOfTheDay)}</div>`;
+    hoursOfTheDay = new Date(hoursOfTheDay.setHours(hoursOfTheDay.getHours()+1));
   }
   return html;
 }

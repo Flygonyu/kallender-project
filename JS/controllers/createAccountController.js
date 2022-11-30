@@ -13,7 +13,6 @@ function createUserAccount(){
             }
             model.users.push(newUser)
             resetCreateAccInputs()
-            console.log('Bruker opprettet')
             changeView('signInView');
             updateView();
         }

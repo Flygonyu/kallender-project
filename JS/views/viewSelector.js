@@ -185,8 +185,8 @@ function moodleSetupLongEvent(){
   let selectedevent=model.inputs.calendar.selectedEventId;
   let html='';
   let events = model.events;
-  if(events[selectedevent].startDate.toLocaleDateString()===
-  events[selectedevent].endDate.toLocaleDateString()){
+  if(events[selectedevent].startDate.toISOString().slice(0,10)===
+  events[selectedevent].endDate.toISOString().slice(0,10)){
     html=`<div class="moodle-top">
     ${model.dayNames[events[selectedevent].startDate.getDay()]} ${events[selectedevent].startDate.toLocaleDateString('no-NO')}</br>
       
@@ -198,12 +198,12 @@ function moodleSetupLongEvent(){
   else{
     html=`
     <div class="moodle-top">
-    ${model.dayNames[events[selectedevent].startDate.getDay()]} 
-    ${events[selectedevent].startDate.toLocaleDateString('no-NO')} 
+    ${model.dayNames[getDayTimeDiffrence(events[selectedevent].startDate)]} 
+    ${reverseDate(events[selectedevent].startDate)} 
     kl. ${events[selectedevent].startDate.toISOString().slice(11,16)}</br>
     - <br>
-    ${model.dayNames[events[selectedevent].endDate.getDay()]} 
-    ${events[selectedevent].endDate.toLocaleDateString('no-NO')} 
+    ${model.dayNames[getDayTimeDiffrence(events[selectedevent].endDate)]} 
+    ${reverseDate(events[selectedevent].endDate)} 
     kl. ${events[selectedevent].endDate.toISOString().slice(11,16)}
     </div>
     `
