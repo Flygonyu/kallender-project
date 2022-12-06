@@ -156,4 +156,3 @@ function signOutUser(){
   model.app.currentUser = 0;
   updateView();
 }
-
