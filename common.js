@@ -82,7 +82,7 @@ function nextDay(currentDay) {
 }
 
 function weekendCheck(currentDay) {
-    let dayColor = 'gray'
+    let dayColor = '#425483'
     if (currentDay.getDay() == 0 || currentDay.getDay() == 6){
         dayColor= 'rgb(255, 145, 0)'
     }
@@ -90,7 +90,7 @@ function weekendCheck(currentDay) {
 }
 
 function weekendIndexCheck(currentDay) {
-    let dayColor = 'gray'
+    let dayColor = '#425483'
     if (currentDay == 0 || currentDay == 6){
         dayColor= 'rgb(255, 145, 0)'
     }

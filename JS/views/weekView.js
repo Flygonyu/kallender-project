@@ -33,9 +33,9 @@ function weekGridView() {
   for (let i = 1; i < model.dayNames.length + 1; i++) {
     let index = i == 7 ? 0 : i;
     html += `
-                <div>
+                <div class="${dateOnly(firstday)===dateOnly(model.today)?'today':''}">
                     <div class="weekHeader" style="background-color:${weekendIndexCheck(index)}" onclick="jumpToDate('${firstday.toISOString()}')">
-                    ${model.dayNames[index]} ${firstday.getDate()}</div>
+                    ${model.dayNames[index]} ${firstday.getDate()}.</div>
                     <div class="weekDayContent">
                     <div class="weekHoliday">${drawHolidays(firstday)}</div>
                     ${getCurrentEvents(firstday)}</div>

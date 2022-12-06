@@ -38,7 +38,7 @@ function drawMonthView() {
   let mondayStart = diffToFirstDayInMonth(firstDayInMonth, divsToAdd);
   for (let i = -divsToAdd; i < getDaysCurrentMonth(currentDay); i++) {
     html += `
-            <div class="dayContainer">
+            <div class="dayContainer ${dateOnly(mondayStart)===dateOnly(model.today)?'today':''}">
                 <div style="color:${weekendCheck(mondayStart)}" onclick="jumpToDate('${mondayStart.toISOString()}')">${mondayStart.getDate()}
                   <div class="monthHoliday">${drawHolidays(mondayStart)}
                   </div>

@@ -8,7 +8,7 @@ function signInView(){
         <input class="passwordInput" placeholder="passord" value="${model.inputs.signIn.passwrd}" 
             oninput="model.inputs.signIn.passwrd=this.value" type="password"> </br>
          ${errorMsg===''?'':moodleErrorMsg()}
-        <button class="sign-in-button spacing" onclick="signInUser()">Sign In</button>
+        <button class="sign-in-button spacing" onclick="signInUser()">Logg inn</button>
        
     </div>
     `;

@@ -15,7 +15,7 @@ function dayView() {
         <button class="splitDayButton" onclick="splitDay()">Del dag</button>
         <div class="dayPicker">
             <button onclick="previousDate(${1})" class="back">&lt</button>
-            <div class="currentDaySeen" style="color:${weekendCheck(currentDay)}">
+            <div class="currentDaySeen ${dateOnly(currentDay)===dateOnly(model.today)?'today':''}" style="color:${weekendCheck(currentDay)}">
             ${model.dayNames[currentDay.getDay()]} 
             ${currentDay.getDate()}</div>
             <button onclick="nextDate(${1})" class="next">&gt</button>

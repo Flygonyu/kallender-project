@@ -376,7 +376,8 @@ body{
 .weekHeader{
     height: 50px;
     width: auto;
-    background-color: gray;
+    color: white;
+    background-color: #425483;
     border: 1px solid black;
     text-align: center;
     line-height: 50px;
@@ -436,7 +437,8 @@ body{
 .monthHeader{
     height: 30px;
     width: auto;
-    background-color: gray;
+    color: white;
+    background-color: #425483;
     border: 1px solid black;
     text-align: center;
     line-height: 30px;
@@ -538,4 +540,9 @@ body{
 
 .monthEvents{
     font-size: smaller;
+}
+
+.today{
+    border: 2px solid rgb(255, 145, 0);
+    background-color: rgba(255, 145, 0, 0.15);
 }

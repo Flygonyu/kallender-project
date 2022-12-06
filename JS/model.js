@@ -2,7 +2,7 @@ const model = {
   //app
   app: {
     currentUser: 0,
-    currentPage: "yearView",
+    currentPage: "monthView",
     errmsg:'',
   },
 
@@ -69,6 +69,8 @@ const model = {
     },
   ],
 
+  today:new Date(),
+  
   months: [
     "Januar",
     "Februar",
@@ -184,6 +186,46 @@ const model = {
       createdBy: 2,
       category: 'møte', 
       color: "#1371d8",
+    },
+    {
+      id:10,
+      startDate: new Date("2022-12-8 18:00:00"),
+      endDate: new Date("2022-12-8 18:00:00"),
+      title: "Filmkveld",
+      description: "Har ikke valgt film enda",
+      createdBy: 2,
+      category: 'annet', 
+      color: "#EBA83A",
+    },
+    {
+      id:11,
+      startDate: new Date("2022-12-8 07:00:00"),
+      endDate: new Date("2022-12-8 08:00:00"),
+      title: "Trening",
+      description: "Dra på EVO",
+      createdBy: 2,
+      category: 'annet', 
+      color: "#90ee90",
+    },
+    {
+      id:12,
+      startDate: new Date("2022-12-11 09:00:00"),
+      endDate: new Date("2022-12-11 10:00:00"),
+      title: "Trening",
+      description: "Dra på EVO",
+      createdBy: 1,
+      category: 'annet', 
+      color: "#90ee90",
+    },
+    {
+      id:13,
+      startDate: new Date("2022-12-11 10:00:00"),
+      endDate: new Date("2022-12-11 12:00:00"),
+      title: "Julebakst",
+      description: "7 slag!",
+      createdBy: 2,
+      category: 'annet', 
+      color: "#EF9A53",
     },
   ],
 

@@ -11,7 +11,7 @@ function createAccountView(){
             <input type="password" class="createLastInputs" value="${model.inputs.createAccount.verifyPasswrd}" placeholder="Verifiser Passord" 
                 oninput="model.inputs.createAccount.verifyPasswrd=this.value">
             ${errorMsg===''?'':moodleErrorMsg()}
-            <button class="sign-in-button" onclick="createUserAccount()">Create Account</button>
+            <button class="sign-in-button" onclick="createUserAccount()">Opprett bruker</button>
         </div>
     `;
     return html;
